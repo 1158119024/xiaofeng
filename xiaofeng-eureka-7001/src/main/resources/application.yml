@@ -1,0 +1,25 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: eureka7001.com
+
+eureka:
+  instance:
+    hostname: eureka7001.com #eureka服务端的实例名称
+    instance-id: xiaofeng-eureka-7001
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false #false表示不向注册中心注册自己。 单机一般是false，高可用一般是true，但是idea启动没问题，jar包启动会报错
+    fetch-registry: false #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务  单机一般是false，高可用一般是true
+    service-url:
+      #单机版
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/        #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址。
+      #集群版
+#      defaultZone: http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 20000
+
+
