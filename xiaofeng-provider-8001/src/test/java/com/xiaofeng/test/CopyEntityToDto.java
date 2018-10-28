@@ -3,6 +3,7 @@ package com.xiaofeng.test;
 import com.alibaba.fastjson.JSON;
 import com.xiaofeng.blogs.collect.dto.CollectDto;
 import com.xiaofeng.blogs.collect.entity.CollectEntity;
+import lombok.extern.log4j.Log4j2;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
@@ -15,8 +16,10 @@ import java.util.List;
  * @Date: 2018/10/16 21:58
  * @Description:
  */
+@Log4j2
 public class CopyEntityToDto {
     public static void main(String[] args) {
+        log.info("---------");
         List<CollectEntity> collectEntities = new ArrayList<>();
         CollectEntity collectEntity = new CollectEntity();
         collectEntity.setId(1);

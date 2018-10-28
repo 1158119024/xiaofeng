@@ -28,4 +28,5 @@ public interface LoginConsumerService {
 
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
     public ResponseData loginOut();
+
 }

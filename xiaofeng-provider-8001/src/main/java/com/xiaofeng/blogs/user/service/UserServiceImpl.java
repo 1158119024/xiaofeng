@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public UserEntity get(Integer userId){
+    public UserEntity get(Integer userId) throws RuntimeException {
         return userRepository.get(userId);
     }
 }

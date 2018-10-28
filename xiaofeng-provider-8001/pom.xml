@@ -80,10 +80,7 @@
                 </exclusion>
             </exclusions>
         </dependency>-->
-        <dependency>  <!-- 支持识别log4j2 yml配置 -->
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

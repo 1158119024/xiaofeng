@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/24 17:33
- * @Description:
+ * @Description: 工具类：获取token以及controller的入参
  */
 public class AopUtils {
 
@@ -85,7 +85,12 @@ public class AopUtils {
             for (String cookieStr: cookies) {
                 String[] cookieStrs = cookieStr.split("=");
                 if ( cookieStrs[0].equals("token") ) {
-                    return cookieStrs[1];
+                    if( cookieStrs.length > 1 ){
+                        if( !StringUtils.isEmpty(cookieStrs[1]) ) {
+                            return cookieStrs[1];
+                        }
+                    }
+
                 }
             }
         }

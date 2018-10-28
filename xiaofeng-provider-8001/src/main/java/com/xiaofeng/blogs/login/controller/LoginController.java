@@ -5,25 +5,25 @@ import com.xiaofeng.blogs.login.service.LoginService;
 import com.xiaofeng.blogs.user.entity.UserEntity;
 import com.xiaofeng.checklogin.annotation.IsLogin;
 import com.xiaofeng.checklogin.aop.AopUtils;
-import com.xiaofeng.checklogin.aop.CheckLoginAop;
 import com.xiaofeng.config.jwt.TokenEntity;
 import com.xiaofeng.config.jwt.TokenUtil;
+import com.xiaofeng.utils.EncryptionUtils;
+import com.xiaofeng.utils.MD5Utils;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/20 17:47
  * @Description:
  */
+@Log4j2
 @RestController
 public class LoginController {
 
@@ -32,11 +32,13 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseData login(@RequestBody UserEntity user){
+    public ResponseData login(@RequestBody UserEntity user) throws Exception {
         Map<String, Object> resultMap = new HashMap<>();
         if( StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword()) ){
             return ResponseData.fial("登录失败,参数不全");
         }
+        String md5Password = MD5Utils.md5Password(EncryptionUtils.aesDecrypt(user.getPassword()));
+        user.setPassword(md5Password);
         //未登录
         user = loginService.login(user);
         if( user == null ){
@@ -44,8 +46,6 @@ public class LoginController {
         }
         TokenEntity tokenEntity = new TokenEntity(user.getId(), user.getUsername());
         String token = TokenUtil.getJWTString(tokenEntity, new HashMap<>());
-//        resultMap.put("user", user);
-        System.out.println("登录成功");
         return ResponseData.successToken(resultMap, token);
     }
 
@@ -53,9 +53,6 @@ public class LoginController {
     @RequestMapping(value = "/isLogin", method = RequestMethod.POST)
     public ResponseData isLogin(HttpServletRequest request){
         String token = AopUtils.getToken(request);
-//        if( StringUtils.isEmpty(token) ){
-//            return ResponseData.fial("缺少token");
-//        }
         return ResponseData.success(TokenUtil.isValid(token));
     }
 
@@ -65,4 +62,5 @@ public class LoginController {
         String token = AopUtils.getToken(request);
         return ResponseData.notLogin();
     }
+
 }

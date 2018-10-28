@@ -10,5 +10,5 @@ import com.xiaofeng.blogs.user.entity.UserEntity;
  */
 public interface UserService {
 
-    UserEntity get(Integer userId);
+    UserEntity get(Integer userId) throws RuntimeException;
 }

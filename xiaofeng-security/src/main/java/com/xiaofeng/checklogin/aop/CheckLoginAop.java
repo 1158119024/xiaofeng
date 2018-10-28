@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/20 15:42
- * @Description:
+ * @Description: 校验是否登陆
  */
 @Component
 @Aspect
@@ -45,7 +45,7 @@ public class CheckLoginAop {
     }
 
     /**
-     * 前置通知，方法调用前被调用
+     * 环绕通知，校验用户登陆
      * @param joinPoint
      */
     @Around("executeService()")

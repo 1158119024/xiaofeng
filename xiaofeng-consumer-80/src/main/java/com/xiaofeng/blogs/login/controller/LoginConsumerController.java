@@ -1,14 +1,12 @@
 package com.xiaofeng.blogs.login.controller;
 
-import com.netflix.discovery.converters.Auto;
 import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.login.service.LoginConsumerService;
 import com.xiaofeng.blogs.user.entity.UserEntity;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 
 /**
  * @Auther: 晓枫
@@ -16,6 +14,7 @@ import javax.xml.ws.Response;
  * @Description:
  */
 @RestController
+@Log4j2
 public class LoginConsumerController {
 
     @Autowired
@@ -35,4 +34,5 @@ public class LoginConsumerController {
     public ResponseData loginOut(){
         return loginConsumerService.loginOut();
     }
+
 }

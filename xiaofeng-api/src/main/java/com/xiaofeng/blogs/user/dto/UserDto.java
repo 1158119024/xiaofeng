@@ -28,6 +28,10 @@ public class UserDto {
     private String password;
     // 电话
     private String phone;
+    // 别名
+    private String aliasname;
+    // 头像
+    private String image;
     // 账号是否启用
     private Boolean isEnable;
     // 创建时间

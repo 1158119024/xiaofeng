@@ -7,8 +7,8 @@ Appenders:
     RollingFile: # 输出到文件，超过256MB归档
       - name: ROLLING_FILE
         ignoreExceptions: false
-#        fileName: C:\\upload/bgy_web/logs/bgy_web.log
-        fileName: /home/rcdj/bgy_web/logs/bgy_web.log
+        fileName: D:/log/xiaofeng.log
+#        fileName: /home/rcdj/bgy_web/logs/bgy_web.log
 #        filePattern: "//logs/$${date:yyyy-MM}/cara_jwt -%d{yyyy-MM-dd}-%i.log.gz"
         filePattern: "D:/logs/$${date:yyyy-MM}/cara_jwt -%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
@@ -25,13 +25,13 @@ Loggers:
         - ref: CONSOLE
         - ref: ROLLING_FILE
     Logger: #单独设置某些包的输出级别
-      - name: cn.caratech.bgy_web.Mapper #复数加上-
+      - name: com.xiaofeng.blogs.*.repository #复数加上-
         additivity: false #去除重复的log
         level: trace
         AppenderRef:
           - ref: CONSOLE #复数加上-
           - ref: ROLLING_FILE #复数加上-
-      - name: cn.caratech.bgy_web.Controller
+      - name: com.xiaofeng.blogs.*.controller
         additivity: false #去除重复的log
         level: debug
         AppenderRef:

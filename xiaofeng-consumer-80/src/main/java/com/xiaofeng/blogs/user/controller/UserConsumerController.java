@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/25 21:01
- * @Description:
+ * @Description: user接口
  */
 @RestController
 @RequestMapping("/user")

@@ -53,9 +53,8 @@ public class PrintRequestLogFilter extends ZuulFilter {
                 }
                 // 没有登陆，跳登陆页面
                 if( responseData.getCode() != null && responseData.getCode() == 203 ){
-                    response.setHeader("set-cookie", "token=null ;path=/;");
+//                    response.setHeader("set-cookie", "token= ;path=/;");
 //                    response.sendRedirect("http://192.168.230.1:4444/#/user/login");
-
                 }
                 responseData.setToken(null);
                 String jsonBody = JSON.toJSONString(responseData);
