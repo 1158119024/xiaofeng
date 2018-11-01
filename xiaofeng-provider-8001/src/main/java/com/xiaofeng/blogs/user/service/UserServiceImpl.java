@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.user.service;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.user.dto.UserAllDetailsDto;
 import com.xiaofeng.blogs.user.entity.UserEntity;
 import com.xiaofeng.blogs.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity get(Integer userId) throws RuntimeException {
         return userRepository.get(userId);
+    }
+
+    @Override
+    public UserAllDetailsDto getUserDetails(String username) {
+        return userRepository.getUserDetails(username);
     }
 }

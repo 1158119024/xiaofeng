@@ -11,7 +11,9 @@ import com.xiaofeng.config.jwt.TokenEntity;
 import com.xiaofeng.config.jwt.TokenUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,5 +38,10 @@ public class UserController {
         TokenEntity tokenEntity = TokenUtil.parseJWTtoUserEntity(AopUtils.getToken(request));
         UserEntity userEntity = userService.get(tokenEntity.getUserId());
         return ResponseData.success(userEntity);
+    }
+
+    @RequestMapping(value = "/getUserDetails/{username}", method = RequestMethod.GET)
+    public ResponseData getUserDetails(@PathVariable String username){
+        return ResponseData.success(userService.getUserDetails(username));
     }
 }

@@ -66,7 +66,7 @@ public class ControllerLog {
     @Pointcut("execution(* com.xiaofeng.blogs.*.service..*.*(..))")
     public void exceptionService(){
     }
-    @AfterThrowing(value = "executeService()", throwing = "ex")
+//    @AfterThrowing(value = "executeService()", throwing = "ex")
     public void exceptionHandlerAfterExp(JoinPoint joinPoint, Throwable ex){
         StackTraceElement[] trace = ex.getStackTrace();
         String exclass = trace[0].getClassName();

@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.user.service;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.user.dto.UserAllDetailsDto;
 import com.xiaofeng.blogs.user.entity.UserEntity;
 
 /**
@@ -11,4 +12,6 @@ import com.xiaofeng.blogs.user.entity.UserEntity;
 public interface UserService {
 
     UserEntity get(Integer userId) throws RuntimeException;
+
+    UserAllDetailsDto getUserDetails(String username);
 }

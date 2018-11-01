@@ -3,6 +3,7 @@ package com.xiaofeng.blogs.user.controller;
 import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.user.service.UserConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +23,10 @@ public class UserConsumerController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResponseData get(){
         return userConsumerService.get();
+    }
+
+    @RequestMapping(value = "/getUserDetails/{username}", method = RequestMethod.GET)
+    public ResponseData getUserDetails(@PathVariable String username){
+        return userConsumerService.getUserDetails(username);
     }
 }
