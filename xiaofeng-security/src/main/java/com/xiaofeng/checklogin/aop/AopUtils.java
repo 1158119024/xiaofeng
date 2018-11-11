@@ -1,6 +1,8 @@
 package com.xiaofeng.checklogin.aop;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaofeng.config.jwt.TokenEntity;
+import com.xiaofeng.config.jwt.TokenUtil;
 import javassist.*;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
@@ -95,5 +97,11 @@ public class AopUtils {
             }
         }
         return null;
+    }
+
+    public static Integer getUserIdByToken(HttpServletRequest request){
+        String token = getToken(request);
+        TokenEntity tokenEntity = TokenUtil.parseJWTtoUserEntity(token);
+        return tokenEntity.getUserId();
     }
 }

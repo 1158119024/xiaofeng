@@ -9,11 +9,24 @@ mybatis:
   #mapper-locations:
   #- classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
 
+logging:
+  level:
+     com:
+      xiaofeng:
+        blogs: debug
+
 # spring配置
 spring:
-   application:
+  http:
+    multipart:
+      enabled: true   # 启用http上传处理
+      max-file-size: 5MB # 设置单个文件的最大长度
+      max-request-size: 20MB # 设置最大的请求文件的大小
+      file-size-threshold: 1MB  # 当上传文件达到1MB的时候进行磁盘写入
+      location: /  # 上传的临时目录
+  application:
     name: xiaofeng-provider
-   datasource:
+  datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
     url: jdbc:mysql://localhost:3306/xiaofengBlogs?useUnicode=true&characterEncoding=utf-8&useSSL=false              # 数据库名称

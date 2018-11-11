@@ -39,7 +39,7 @@ public class ResponseData {
     }
 
     public static ResponseData success(Object data){
-        return new ResponseData(200, "请求成功", data);
+        return new ResponseData(200, "操作成功！！", data);
     }
 
     public static ResponseData successToken(Object data, String token){
@@ -50,6 +50,10 @@ public class ResponseData {
 
     public static ResponseData fial(String msg){
         return new ResponseData(400, msg, null);
+    }
+
+    public static ResponseData fial(){
+        return new ResponseData(400, "操作失败！！", null);
     }
 
     public static ResponseData _500(){

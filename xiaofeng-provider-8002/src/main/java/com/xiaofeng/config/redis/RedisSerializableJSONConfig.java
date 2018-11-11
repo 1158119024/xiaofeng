@@ -1,3 +1,4 @@
+/*
 package com.xiaofeng.config.redis;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
@@ -11,12 +12,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+*/
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/20 21:57
  * @Description: 将spring session Redis的序列化的格式变为json
- */
-@Configuration
+ *//*
+
+//@Configuration
 public class RedisSerializableJSONConfig {
 
     //spring session redis序列化
@@ -45,3 +48,4 @@ public class RedisSerializableJSONConfig {
     }
 
 }
+*/

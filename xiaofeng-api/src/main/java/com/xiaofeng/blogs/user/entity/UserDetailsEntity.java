@@ -22,7 +22,7 @@ public class UserDetailsEntity {
     // 用户id
     private Integer userId;
     // 作品数量
-    private Integer productNum;
+    private Integer articleNum;
     // 收藏数量
     private Integer collectNum;
     // 评论数量

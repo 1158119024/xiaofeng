@@ -30,7 +30,7 @@ public interface UserRepository {
             "\td.commendNum, \n" +
             "\td.commentNum,\n" +
             "\td.details, \n" +
-            "\td.productNum, \n" +
+            "\td.articleNum, \n" +
             "\td.userId\n" +
             "FROM xiaofeng_user u , xiaofeng_user_details d WHERE u.username = #{username} AND u.id = d.userId")
     UserAllDetailsDto getUserDetails(String username);
