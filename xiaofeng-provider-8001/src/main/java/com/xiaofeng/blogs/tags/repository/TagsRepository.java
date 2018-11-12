@@ -40,9 +40,9 @@ public interface TagsRepository {
     @Select("select * from xiaofeng_tags where id = #{id}")
     TagsEntity getTagById(Integer id);
 
-//    @Select("select * from xiaofeng_tags where userId = #{userId} and tagName = #{tagName}")
     @SelectProvider(type = TagsRepositoryImpl.class, method = "getTagsByUserId")
     List<TagsEntity> getTagsByUserId(@Param("userId") Integer userId,@Param("tagName") String tagName);
 
-
+    @Select("select * from xiaofeng_tags where userId = #{userId} and tagName = #{tagName}")
+    TagsEntity getTagByTagName(@Param("userId") Integer userId,@Param("tagName") String tagName);
 }

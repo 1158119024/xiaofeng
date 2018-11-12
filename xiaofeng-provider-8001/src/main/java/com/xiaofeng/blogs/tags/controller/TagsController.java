@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.service.TagsService;
+import com.xiaofeng.checklogin.annotation.IsLogin;
 import com.xiaofeng.checklogin.aop.AopUtils;
 import com.xiaofeng.config.Constant;
 import org.springframework.beans.BeanUtils;
@@ -35,12 +36,13 @@ public class TagsController {
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @IsLogin
     public ResponseData add(@RequestBody TagsEntity tagsEntity, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
         tagsEntity.setUserId(userId);
         Integer result = tagsService.add(tagsEntity);
         if( result == null || result == 0 ){
-            return ResponseData.fial();
+            return ResponseData.addFial();
         }else{
             return ResponseData.success(tagsEntity);
         }
@@ -53,6 +55,7 @@ public class TagsController {
      * @return
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @IsLogin
     public ResponseData delete(@PathVariable("id") Integer id, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
         if( id == null || id == 0 ){
@@ -73,6 +76,7 @@ public class TagsController {
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @IsLogin
     public ResponseData update(@RequestBody TagsEntity tagsEntity, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
         tagsEntity.setUserId(userId);
@@ -91,6 +95,7 @@ public class TagsController {
      * @return
      */
     @RequestMapping(value = "/incr", method = RequestMethod.POST)
+    @IsLogin
     public ResponseData incr(@RequestBody Integer id, HttpServletRequest request){
         if( id == null || id == 0 ){
             return ResponseData.fial("缺少参数！！");
@@ -126,7 +131,8 @@ public class TagsController {
      * @return
      */
     @RequestMapping(value = "/getTagsByUserId", method = RequestMethod.POST)
-    public ResponseData getTagsByUserId(@RequestBody Map<String, String> map, HttpServletRequest request){
+    @IsLogin
+    public ResponseData getTagsByUserId(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
         String pageNumStr = map.get("pageNum");
         Integer pageNum = Integer.parseInt(StringUtils.isEmpty(pageNumStr) ? "1" : pageNumStr);

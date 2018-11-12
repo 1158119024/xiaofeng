@@ -47,7 +47,7 @@ public class TagsConsumerController {
     }
 
     @RequestMapping(value = "/getTagsByUserId", method = RequestMethod.POST)
-    public ResponseData getTagsByUserId(@RequestBody Map<String, String> map){
+    public ResponseData getTagsByUserId(@RequestBody(required = false) Map<String, String> map){
         return tagsConsumerService.getTagsByUserId(map);
     }
 }

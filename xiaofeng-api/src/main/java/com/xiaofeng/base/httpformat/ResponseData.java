@@ -56,6 +56,10 @@ public class ResponseData {
         return new ResponseData(400, "操作失败！！", null);
     }
 
+    public static ResponseData addFial(){
+        return new ResponseData(400, "增加失败！！重复添加", null);
+    }
+
     public static ResponseData _500(){
         return new ResponseData(500, "服务器内部错误", null);
     }
@@ -69,6 +73,6 @@ public class ResponseData {
     }
 
     public static ResponseData notLogin(){
-        return new ResponseData(203, "当前服务需要登陆才能访问---登陆拦截机制", null);
+        return new ResponseData(203, "您还没有登陆呢", null);
     }
 }

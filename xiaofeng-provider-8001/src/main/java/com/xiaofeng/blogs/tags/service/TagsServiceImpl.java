@@ -22,7 +22,10 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public Integer add(TagsEntity tagsEntity) {
-        return tagsRepository.add(tagsEntity);
+        if (tagsRepository.getTagByTagName(tagsEntity.getUserId(), tagsEntity.getTagName()) == null) {
+            return tagsRepository.add(tagsEntity);
+        }
+        return 0;
     }
 
     @Override
@@ -49,7 +52,6 @@ public class TagsServiceImpl implements TagsService {
     public List<TagsEntity> getTagsByUserId(Integer userId, Integer pageNum, Integer pageSize, String tagName) {
         List<TagsEntity> list = PageHelper.startPage(pageNum, pageSize);
         tagsRepository.getTagsByUserId(userId, tagName);
-        System.out.println(list);
         return list;
     }
 }

@@ -22,6 +22,7 @@ public class TagsRepositoryImpl {
                 if( !StringUtils.isEmpty(tagName) ){
                     WHERE("tagName like CONCAT('%',#{tagName},'%')");
                 }
+                ORDER_BY("createTime desc");
             }
         }.toString();
     }
