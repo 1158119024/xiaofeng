@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.article.repository;
 
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -15,9 +16,9 @@ public interface ArticleRepository {
 
     @Insert("INSERT INTO " +
             "xiaofeng_article(" +
-            "id, userId, title, categroyId, tagsId, content, commentNum, commendNum, isTop, topGrade, isPrivate, isPublish, createTime" +
+            "id, userId, title, categoryId, tagsId, content, commentNum, commendNum, browseNum, isTop, topGrade, isPrivate, state, createTime" +
             ") VALUE(" +
-            "#{id}, #{userId}, #{title}, #{categroyId}, #{tagsId}, #{content}, #{commentNum}, #{commendNum}, #{isTop}, #{topGrade}, #{isPrivate}, #{isPublish}, #{createTime})")
+            "#{id}, #{userId}, #{title}, #{categoryId}, #{tagsId}, #{content}, #{commentNum}, #{commendNum}, #{browseNum}, #{isTop}, #{topGrade}, #{isPrivate}, #{state}, now())")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     Integer add(ArticleEntity articleEntity);
 
@@ -30,7 +31,7 @@ public interface ArticleRepository {
     @Select("select * from xiaofeng_article where id = #{id}")
     ArticleEntity getArticleById(Integer id);
 
-//    @Select("select * from xiaofeng_article where userId = #{userId}")
+    //    @Select("select * from xiaofeng_article where userId = #{userId}")
     @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArticlesByUserId")
-    List<ArticleEntity> getArticlesByUserId(@Param("userId") Integer userId, @Param("title") String title);
+    List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
 }

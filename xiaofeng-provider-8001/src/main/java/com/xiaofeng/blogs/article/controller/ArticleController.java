@@ -1,6 +1,8 @@
 package com.xiaofeng.blogs.article.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.service.ArticleConsumerService;
 import com.xiaofeng.blogs.article.service.ArticleService;
@@ -82,14 +84,15 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
-    public ResponseData getArticlesByUserId(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request){
+    public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
-        String pageNumStr = map.get("pageNum");
-        Integer pageNum = Integer.parseInt(StringUtils.isEmpty(pageNumStr) ? "1" : pageNumStr);
-        String pageSizeStr = map.get("pageSize");
-        Integer pageSize = Integer.parseInt(StringUtils.isEmpty(pageSizeStr) ? Constant.pageSize.toString() : pageSizeStr);
-
-        List<ArticleEntity> list = articleService.getArticlesByUserId(userId, pageNum, pageSize, map.get("title"));
-        return ResponseData.success(list);
+        Integer pageNum = articleBo.getPageNum();
+        Integer pageSize = articleBo.getPageSize();
+        articleBo.setPageNum(pageNum == null || pageNum < 1 ? 1 : pageNum);
+        articleBo.setPageSize(pageSize == null ? Constant.pageSize : pageSize);
+        articleBo.setUserId(userId);
+        List<ArticleEntity> list = articleService.getArticlesByUserId(articleBo);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResponseData.success(pageInfo);
     }
 }

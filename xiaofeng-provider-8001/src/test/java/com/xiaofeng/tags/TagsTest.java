@@ -60,10 +60,10 @@ public class TagsTest {
 
     @Test
     public void getTagById(){
-        TagsEntity tagById = tagsRepository.getTagById(44);
-        System.out.println("return: "+tagById);
-        String s = DateUtil.convertDate2Str(tagById.getCreateTime());
-        System.out.println("data: "+ s);
+//        TagsEntity tagById = tagsRepository.getTagById(44);
+//        System.out.println("return: "+tagById);
+//        String s = DateUtil.convertDate2Str(tagById.getCreateTime());
+//        System.out.println("data: "+ s);
     }
 
     @Test

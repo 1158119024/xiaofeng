@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.controller;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.service.ArticleConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ArticleConsumerController {
     }
 
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
-    public ResponseData getArticlesByUserId(@RequestBody(required = false) Map<String, String> map){
-        return articleConsumerService.getArticlesByUserId(map);
+    public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo){
+        return articleConsumerService.getArticlesByUserId(articleBo);
     }
 }

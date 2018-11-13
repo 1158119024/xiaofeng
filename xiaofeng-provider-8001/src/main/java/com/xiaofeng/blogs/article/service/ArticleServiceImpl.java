@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.service;
 
 import com.github.pagehelper.PageHelper;
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.repository.ArticleRepository;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 晓枫
@@ -41,9 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> getArticlesByUserId(Integer userId, Integer pageNum, Integer pageSize, String title) {
-        List<ArticleEntity> list = PageHelper.startPage(pageNum, pageSize);
-        articleRepository.getArticlesByUserId(userId, title);
+    public List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo) {
+        List<ArticleEntity> list = PageHelper.startPage(articleBo.getPageNum(), articleBo.getPageSize());
+        articleRepository.getArticlesByUserId(articleBo);
         return list;
     }
 }

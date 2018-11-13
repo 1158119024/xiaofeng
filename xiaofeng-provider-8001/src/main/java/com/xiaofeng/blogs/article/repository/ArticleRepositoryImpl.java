@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.article.repository;
 
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -26,7 +27,7 @@ public class ArticleRepositoryImpl {
                 if (!StringUtils.isEmpty(articleEntity.getTitle())) {
                     SET("title=#{title}");
                 }
-                if (!StringUtils.isEmpty(articleEntity.getCategroyId())) {
+                if (!StringUtils.isEmpty(articleEntity.getCategoryId())) {
                     SET("categroyId=#{categroyId}");
                 }
                 if (!StringUtils.isEmpty(articleEntity.getTagsId())) {
@@ -39,7 +40,10 @@ public class ArticleRepositoryImpl {
                     SET("commentNum=#{commentNum}");
                 }
                 if (!StringUtils.isEmpty(articleEntity.getCommendNum())) {
-                    SET("commentdNum=#{commentdNum}");
+                    SET("commendNum=#{commendNum}");
+                }
+                if (!StringUtils.isEmpty(articleEntity.getBrowseNum())) {
+                    SET("browseNum=#{browseNum}");
                 }
                 if (!StringUtils.isEmpty(articleEntity.getIsTop())) {
                     SET("isTop=#{isTop}");
@@ -50,8 +54,8 @@ public class ArticleRepositoryImpl {
                 if (!StringUtils.isEmpty(articleEntity.getIsPrivate())) {
                     SET("isPrivate=#{isPrivate}");
                 }
-                if (!StringUtils.isEmpty(articleEntity.getIsPublish())) {
-                    SET("isPublish=#{isPublish}");
+                if (!StringUtils.isEmpty(articleEntity.getState())) {
+                    SET("state=#{state}");
                 }
                 if (!StringUtils.isEmpty(articleEntity.getCreateTime())) {
                     SET("createTime=#{createTime}");
@@ -61,15 +65,26 @@ public class ArticleRepositoryImpl {
             }
         }.toString();
     }
-    public String getArticlesByUserId(final @Param("userId") Integer userId, final @Param("title") String title){
+    public String getArticlesByUserId(final ArticleBo articleBo){
         return new SQL() {
             {
                 SELECT("*");
                 FROM("xiaofeng_article");
-                WHERE("1=1");
                 WHERE("userId = #{userId}");
-                if( !StringUtils.isEmpty(title) ){
+                if( !StringUtils.isEmpty(articleBo.getTitle()) ){
                     WHERE("title like CONCAT('%',#{title},'%')");
+                }
+                if( !StringUtils.isEmpty(articleBo.getStartTime()) ){
+                    WHERE("createTime >= #{startTime}");
+                }
+                if( !StringUtils.isEmpty(articleBo.getEndTime()) ){
+                    WHERE("createTime <= #{endTime}");
+                }
+                if( !StringUtils.isEmpty(articleBo.getState()) ){
+                    WHERE("state = #{state}");
+                }
+                if( !StringUtils.isEmpty(articleBo.getTagId()) ){
+                    WHERE("tagsId like CONCAT('%',#{tagId},'%')");
                 }
                 ORDER_BY("createTime desc");
             }

@@ -1,9 +1,11 @@
 package com.xiaofeng.blogs.article.service;
 
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 晓枫
@@ -19,5 +21,5 @@ public interface ArticleService {
 
     ArticleEntity getArticleById(Integer id);
 
-    List<ArticleEntity> getArticlesByUserId(Integer userId, Integer pageNum, Integer pageSize, String title);
+    List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
 }

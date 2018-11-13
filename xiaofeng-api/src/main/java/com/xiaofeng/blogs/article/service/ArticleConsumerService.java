@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.service;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,5 +33,5 @@ public interface ArticleConsumerService {
     ResponseData getArticleById(@PathVariable("id") Integer id);
 
     @RequestMapping(value = "/article/getArticlesByUserId", method = RequestMethod.POST)
-    ResponseData getArticlesByUserId(@RequestBody(required = false) Map<String, String> map);
+    ResponseData getArticlesByUserId(ArticleBo articleBo);
 }
