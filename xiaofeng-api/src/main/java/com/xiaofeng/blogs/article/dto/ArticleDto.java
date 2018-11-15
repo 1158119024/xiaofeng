@@ -1,7 +1,6 @@
-package com.xiaofeng.blogs.article.entity;
+package com.xiaofeng.blogs.article.dto;
 
-import com.xiaofeng.base.entity.EntityBase;
-import com.xiaofeng.blogs.article.dto.ArticleDto;
+import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: 晓枫
@@ -20,7 +20,7 @@ import java.util.Date;
 @Data
 @ToString
 @Accessors(chain=true)
-public class ArticleEntity extends EntityBase<ArticleDto, ArticleEntity> {
+public class ArticleDto {
     // 文章id
     private Integer id;
     // 用户id
@@ -34,11 +34,11 @@ public class ArticleEntity extends EntityBase<ArticleDto, ArticleEntity> {
     // 文章内容
     private String content;
     // 评论数
-    private Integer commentNum;
+    private Integer commentNum = 0;
     // 点赞数
-    private Integer commendNum;
+    private Integer commendNum = 0;
     // 浏览数
-    private Integer browseNum;
+    private Integer browseNum = 0;
     // 是否置顶
     private Boolean isTop;
     // 置顶等级
@@ -49,6 +49,7 @@ public class ArticleEntity extends EntityBase<ArticleDto, ArticleEntity> {
     private String state;
     // 创建时间
     private Date createTime;
-    // 修改时间
-    private Date updateTime;
+
+    // 文章标签列表
+    private List<TagsEntity> tagList;
 }

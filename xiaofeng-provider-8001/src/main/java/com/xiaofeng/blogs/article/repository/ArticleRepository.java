@@ -14,11 +14,12 @@ import java.util.List;
 @Mapper
 public interface ArticleRepository {
 
-    @Insert("INSERT INTO " +
-            "xiaofeng_article(" +
-            "id, userId, title, categoryId, tagsId, content, commentNum, commendNum, browseNum, isTop, topGrade, isPrivate, state, createTime" +
-            ") VALUE(" +
-            "#{id}, #{userId}, #{title}, #{categoryId}, #{tagsId}, #{content}, #{commentNum}, #{commendNum}, #{browseNum}, #{isTop}, #{topGrade}, #{isPrivate}, #{state}, now())")
+//    @Insert("INSERT INTO " +
+//            "xiaofeng_article(" +
+//            "id, userId, title, categoryId, tagsId, content, commentNum, commendNum, browseNum, isTop, topGrade, isPrivate, state, createTime" +
+//            ") VALUE(" +
+//            "#{id}, #{userId}, #{title}, #{categoryId}, #{tagsId}, #{content}, #{commentNum}, #{commendNum}, #{browseNum}, #{isTop}, #{topGrade}, #{isPrivate}, #{state}, now())")
+    @InsertProvider(type = ArticleRepositoryImpl.class, method = "add")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     Integer add(ArticleEntity articleEntity);
 

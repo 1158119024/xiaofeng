@@ -2,12 +2,13 @@ package com.xiaofeng.blogs.article.repository;
 
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import com.xiaofeng.utils.MybatisUtils;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 晓枫
@@ -16,50 +17,29 @@ import java.util.List;
  */
 public class ArticleRepositoryImpl {
 
-//    @Update("update xiaofeng_article set " +
-//            "title=#{title}, categroyId=#{categroyId}, tagsId=#{tagsId}, content=#{content}, commentNum=#{commentNum}," +
-//            "commentdNum=#{commentdNum}, isTop=#{isTop}, topGrade=#{topGrade}, isPrivate=#{isPrivate}, isPublish=#{isPublish}," +
-//            "createTime=#{createTime} where id=#{id} and userId = #{userId}")
+    public String add(final ArticleEntity articleEntity){
+        List<String> excludeFields = new ArrayList<>();// 需要排除的字段
+        excludeFields.add("createTime");
+        excludeFields.add("updateTime");
+        Map<String, String> add = MybatisUtils.add(articleEntity, excludeFields);
+        return new SQL(){
+            {
+                INSERT_INTO("xiaofeng_article");
+                VALUES(add.get("key"), add.get("value"));
+                VALUES("createTime", "now()");
+                VALUES("updateTime", "now()");
+            }
+        }.toString();
+    }
     public String update(final ArticleEntity articleEntity){
+        List<String> excludeFields = new ArrayList<>();// 需要排除的字段
+        excludeFields.add("updateTime");
+        String sets = MybatisUtils.update(articleEntity, excludeFields);
         return new SQL(){
             {
                 UPDATE("xiaofeng_article");
-                if (!StringUtils.isEmpty(articleEntity.getTitle())) {
-                    SET("title=#{title}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getCategoryId())) {
-                    SET("categroyId=#{categroyId}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getTagsId())) {
-                    SET("tagsId=#{tagsId}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getContent())) {
-                    SET("content=#{content}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getCommentNum())) {
-                    SET("commentNum=#{commentNum}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getCommendNum())) {
-                    SET("commendNum=#{commendNum}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getBrowseNum())) {
-                    SET("browseNum=#{browseNum}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getIsTop())) {
-                    SET("isTop=#{isTop}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getTopGrade())) {
-                    SET("topGrade=#{topGrade}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getIsPrivate())) {
-                    SET("isPrivate=#{isPrivate}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getState())) {
-                    SET("state=#{state}");
-                }
-                if (!StringUtils.isEmpty(articleEntity.getCreateTime())) {
-                    SET("createTime=#{createTime}");
-                }
+                SET(sets);
+                SET("updateTime=now()");
                 WHERE("id=#{id}");
                 WHERE("userId=#{userId}");
             }
@@ -86,7 +66,15 @@ public class ArticleRepositoryImpl {
                 if( !StringUtils.isEmpty(articleBo.getTagId()) ){
                     WHERE("tagsId like CONCAT('%',#{tagId},'%')");
                 }
-                ORDER_BY("createTime desc");
+                if( articleBo.getIsPrivate() == null ){
+                    WHERE("isPrivate = false");
+                }else{
+                    WHERE("isPrivate = #{isPrivate}");
+                }
+                if( articleBo.getIsTop() != null ){
+                    WHERE("isTop = #{isTop}");
+                }
+                ORDER_BY("topGrade DESC, updateTime DESC");
             }
         }.toString();
     }

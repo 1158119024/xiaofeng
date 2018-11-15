@@ -35,4 +35,8 @@ public class ArticleBo {
     private String state;
     // 标签id
     private String tagId;
+    // 私密
+    private Boolean isPrivate = false;
+    // 置顶
+    private Boolean isTop = true;
 }

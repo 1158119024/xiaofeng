@@ -3,6 +3,7 @@ package com.xiaofeng.blogs.article.controller;
 import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
+import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.service.ArticleConsumerService;
 import com.xiaofeng.blogs.article.service.ArticleService;
@@ -79,8 +80,8 @@ public class ArticleController {
 
     @RequestMapping(value = "/getArticleById/{id}", method = RequestMethod.GET)
     public ResponseData getArticleById(@PathVariable("id") Integer id){
-        ArticleEntity entity = articleService.getArticleById(id);
-        return ResponseData.success(entity);
+        ArticleDto articleDto = articleService.getArticleById(id);
+        return ResponseData.success(articleDto);
     }
 
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)

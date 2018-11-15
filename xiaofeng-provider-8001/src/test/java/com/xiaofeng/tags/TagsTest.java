@@ -79,8 +79,13 @@ public class TagsTest {
 
     @Test
     public void test() {
-        HashMap<String, String> map = new HashMap<>();
-        Integer page = Integer.parseInt(map.get("page") != null ? map.get("page") : "0");
-        System.out.println(page == null);
+//        HashMap<String, String> map = new HashMap<>();
+//        Integer page = Integer.parseInt(map.get("page") != null ? map.get("page") : "0");
+//        System.out.println(page == null);
+        String str = ",12,123,1245";
+        String[] split = str.split(",");
+        for( String s: split ){
+            System.out.println(s);
+        }
     }
 }

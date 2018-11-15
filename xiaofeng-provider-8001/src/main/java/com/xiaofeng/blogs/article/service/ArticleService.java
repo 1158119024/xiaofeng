@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.service;
 
 import com.xiaofeng.blogs.article.bo.ArticleBo;
+import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -19,7 +20,7 @@ public interface ArticleService {
 
     Integer update(ArticleEntity articleEntity);
 
-    ArticleEntity getArticleById(Integer id);
+    ArticleDto getArticleById(Integer id);
 
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
 }
