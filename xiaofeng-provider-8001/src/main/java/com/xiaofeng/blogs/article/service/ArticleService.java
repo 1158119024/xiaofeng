@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.article.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
@@ -20,7 +21,11 @@ public interface ArticleService {
 
     Integer update(ArticleEntity articleEntity);
 
+    Integer updateState(ArticleEntity articleEntity);
+
     ArticleDto getArticleById(Integer id);
 
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
+
+    PageInfo getArticles(ArticleBo articleBo);
 }

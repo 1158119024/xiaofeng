@@ -32,6 +32,6 @@ public interface UserRepository {
             "\td.details, \n" +
             "\td.articleNum, \n" +
             "\td.userId\n" +
-            "FROM xiaofeng_user u , xiaofeng_user_details d WHERE u.username = #{username} AND u.id = d.userId")
-    UserAllDetailsDto getUserDetails(String username);
+            "FROM xiaofeng_user u , xiaofeng_user_details d WHERE u.id = #{userId} AND u.id = d.userId")
+    UserAllDetailsDto getUserDetails(Integer userId);
 }

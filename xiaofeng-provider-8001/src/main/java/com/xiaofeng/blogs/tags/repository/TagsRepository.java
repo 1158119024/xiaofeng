@@ -37,6 +37,9 @@ public interface TagsRepository {
     @Update("update xiaofeng_tags set articleNum=articleNum+1 where id=#{id} and userId = #{userId}")
     Integer incr(@Param("id") Integer id, @Param("userId") Integer userId);
 
+    @Update("update xiaofeng_tags set articleNum=articleNum-1 where id=#{id} and userId = #{userId}")
+    Integer decr(@Param("id") Integer id, @Param("userId") Integer userId);
+
     @Select("select * from xiaofeng_tags where id = #{id}")
     TagsEntity getTagById(Integer id);
 

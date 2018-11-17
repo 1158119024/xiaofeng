@@ -23,4 +23,12 @@ public interface TagsService {
     TagsEntity getTagById(Integer id);
 
     List<TagsEntity> getTagsByUserId(Integer userId, Integer pageNum, Integer pageSize, String tagName);
+
+    void incrTagNum(String tagsId, Integer userId);
+
+    void decrTagNum(String tagsId, Integer userId);
+
+    void updateTagNum(List<String> tagsIdList, Integer userId, String action);
+
+    List<TagsEntity> getTagEntityByTagsId(String tagsId);
 }

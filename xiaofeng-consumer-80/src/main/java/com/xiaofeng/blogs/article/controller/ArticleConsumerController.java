@@ -36,6 +36,11 @@ public class ArticleConsumerController {
         return articleConsumerService.update(articleEntity);
     }
 
+    @RequestMapping(value = "/updateState", method = RequestMethod.POST)
+    public ResponseData updateState(@RequestBody ArticleEntity articleEntity){
+        return articleConsumerService.updateState(articleEntity);
+    }
+
     @RequestMapping(value = "/getArticleById/{id}", method = RequestMethod.GET)
     public ResponseData getArticleById(@PathVariable("id") Integer id){
         return articleConsumerService.getArticleById(id);
@@ -44,5 +49,10 @@ public class ArticleConsumerController {
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
     public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo){
         return articleConsumerService.getArticlesByUserId(articleBo);
+    }
+
+    @RequestMapping(value = "/getArticles", method = RequestMethod.POST)
+    public ResponseData getArticles(@RequestBody ArticleBo articleBo){
+        return articleConsumerService.getArticles(articleBo);
     }
 }

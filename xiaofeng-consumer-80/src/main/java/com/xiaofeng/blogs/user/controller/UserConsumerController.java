@@ -25,8 +25,8 @@ public class UserConsumerController {
         return userConsumerService.get();
     }
 
-    @RequestMapping(value = "/getUserDetails/{username}", method = RequestMethod.GET)
-    public ResponseData getUserDetails(@PathVariable String username){
-        return userConsumerService.getUserDetails(username);
+    @RequestMapping(value = "/getUserDetails/{userId}", method = RequestMethod.GET)
+    public ResponseData getUserDetails(@PathVariable Integer userId){
+        return userConsumerService.getUserDetails(userId);
     }
 }

@@ -17,7 +17,7 @@ public interface UserConsumerService {
     @RequestMapping(value = "/user/get", method = RequestMethod.GET)
     ResponseData get();
 
-    @RequestMapping(value = "/user/getUserDetails/{username}", method = RequestMethod.GET)
-    ResponseData getUserDetails(@PathVariable("username") String username);
+    @RequestMapping(value = "/user/getUserDetails/{userId}", method = RequestMethod.GET)
+    ResponseData getUserDetails(@PathVariable("userId") Integer userId);
 
 }

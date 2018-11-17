@@ -13,5 +13,5 @@ public interface UserService {
 
     UserEntity get(Integer userId) throws RuntimeException;
 
-    UserAllDetailsDto getUserDetails(String username);
+    UserAllDetailsDto getUserDetails(Integer userId);
 }

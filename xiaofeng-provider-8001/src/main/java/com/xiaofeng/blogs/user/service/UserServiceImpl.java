@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserAllDetailsDto getUserDetails(String username) {
-        return userRepository.getUserDetails(username);
+    public UserAllDetailsDto getUserDetails(Integer userId) {
+        return userRepository.getUserDetails(userId);
     }
 }

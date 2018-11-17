@@ -40,8 +40,8 @@ public class UserController {
         return ResponseData.success(userEntity);
     }
 
-    @RequestMapping(value = "/getUserDetails/{username}", method = RequestMethod.GET)
-    public ResponseData getUserDetails(@PathVariable String username){
-        return ResponseData.success(userService.getUserDetails(username));
+    @RequestMapping(value = "/getUserDetails/{userId}", method = RequestMethod.GET)
+    public ResponseData getUserDetails(@PathVariable("userId") Integer userId){
+        return ResponseData.success(userService.getUserDetails(userId));
     }
 }

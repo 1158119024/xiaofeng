@@ -49,6 +49,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @IsLogin
     public ResponseData delete(@PathVariable("id") Integer id, HttpServletRequest request){
         if( id == null || id == 0 ){
             return ResponseData.fial("缺少参数！！");
@@ -63,6 +64,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @IsLogin
     public ResponseData update(@RequestBody ArticleEntity articleEntity, HttpServletRequest request){
         Integer id = articleEntity.getId();
         if( id == null ){
@@ -78,6 +80,23 @@ public class ArticleController {
         }
     }
 
+    @RequestMapping(value = "/updateState", method = RequestMethod.POST)
+    @IsLogin
+    public ResponseData updateState(@RequestBody ArticleEntity articleEntity, HttpServletRequest request){
+        Integer id = articleEntity.getId();
+        if( id == null ){
+            return ResponseData.fial("缺少参数！！");
+        }
+        Integer userId = AopUtils.getUserIdByToken(request);
+        articleEntity.setUserId(userId);
+        Integer result = articleService.updateState(articleEntity);
+        if( result == null || result == 0 ){
+            return ResponseData.fial();
+        }else{
+            return ResponseData.success(articleEntity);
+        }
+    }
+
     @RequestMapping(value = "/getArticleById/{id}", method = RequestMethod.GET)
     public ResponseData getArticleById(@PathVariable("id") Integer id){
         ArticleDto articleDto = articleService.getArticleById(id);
@@ -85,6 +104,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
+    @IsLogin
     public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo, HttpServletRequest request){
         Integer userId = AopUtils.getUserIdByToken(request);
         Integer pageNum = articleBo.getPageNum();
@@ -93,7 +113,17 @@ public class ArticleController {
         articleBo.setPageSize(pageSize == null ? Constant.pageSize : pageSize);
         articleBo.setUserId(userId);
         List<ArticleEntity> list = articleService.getArticlesByUserId(articleBo);
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<ArticleEntity> pageInfo = new PageInfo<>(list);
+        return ResponseData.success(pageInfo);
+    }
+
+    @RequestMapping(value = "/getArticles", method = RequestMethod.POST)
+    public ResponseData getArticles(@RequestBody ArticleBo articleBo){
+        Integer pageNum = articleBo.getPageNum();
+        Integer pageSize = articleBo.getPageSize();
+        articleBo.setPageNum(pageNum == null || pageNum < 1 ? 1 : pageNum);
+        articleBo.setPageSize(pageSize == null ? Constant.pageSize : pageSize);
+        PageInfo<ArticleDto> pageInfo = articleService.getArticles(articleBo);
         return ResponseData.success(pageInfo);
     }
 }

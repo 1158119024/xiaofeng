@@ -29,9 +29,15 @@ public interface ArticleConsumerService {
     @RequestMapping(value = "/article/update", method = RequestMethod.POST)
     ResponseData update(ArticleEntity articleEntity);
 
+    @RequestMapping(value = "/article/updateState", method = RequestMethod.POST)
+    ResponseData updateState(ArticleEntity articleEntity);
+
     @RequestMapping(value = "/article/getArticleById/{id}", method = RequestMethod.GET)
     ResponseData getArticleById(@PathVariable("id") Integer id);
 
     @RequestMapping(value = "/article/getArticlesByUserId", method = RequestMethod.POST)
     ResponseData getArticlesByUserId(ArticleBo articleBo);
+
+    @RequestMapping(value = "/article/getArticles", method = RequestMethod.POST)
+    ResponseData getArticles(ArticleBo articleBo);
 }

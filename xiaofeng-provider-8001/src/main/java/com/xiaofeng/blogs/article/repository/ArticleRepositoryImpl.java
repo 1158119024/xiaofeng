@@ -60,7 +60,9 @@ public class ArticleRepositoryImpl {
                 if( !StringUtils.isEmpty(articleBo.getEndTime()) ){
                     WHERE("createTime <= #{endTime}");
                 }
-                if( !StringUtils.isEmpty(articleBo.getState()) ){
+                if( StringUtils.isEmpty(articleBo.getState()) ){
+                    WHERE("state = 1");
+                }else{
                     WHERE("state = #{state}");
                 }
                 if( !StringUtils.isEmpty(articleBo.getTagId()) ){
