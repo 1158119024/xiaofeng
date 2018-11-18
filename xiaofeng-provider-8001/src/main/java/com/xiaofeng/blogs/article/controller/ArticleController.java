@@ -48,6 +48,12 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 根据id删除
+     * @param id
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @IsLogin
     public ResponseData delete(@PathVariable("id") Integer id, HttpServletRequest request){
@@ -63,6 +69,12 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 整体修改
+     * @param articleEntity
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @IsLogin
     public ResponseData update(@RequestBody ArticleEntity articleEntity, HttpServletRequest request){
@@ -80,6 +92,12 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 修改文章状态
+     * @param articleEntity
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/updateState", method = RequestMethod.POST)
     @IsLogin
     public ResponseData updateState(@RequestBody ArticleEntity articleEntity, HttpServletRequest request){
@@ -97,12 +115,23 @@ public class ArticleController {
         }
     }
 
+    /**
+     * 根据id获取文章
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/getArticleById/{id}", method = RequestMethod.GET)
     public ResponseData getArticleById(@PathVariable("id") Integer id){
         ArticleDto articleDto = articleService.getArticleById(id);
         return ResponseData.success(articleDto);
     }
 
+    /**
+     * 后台根据条件查询文章
+     * @param articleBo
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
     @IsLogin
     public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo, HttpServletRequest request){
@@ -117,6 +146,11 @@ public class ArticleController {
         return ResponseData.success(pageInfo);
     }
 
+    /**
+     * 前台根据条件查询文章
+     * @param articleBo
+     * @return
+     */
     @RequestMapping(value = "/getArticles", method = RequestMethod.POST)
     public ResponseData getArticles(@RequestBody ArticleBo articleBo){
         Integer pageNum = articleBo.getPageNum();

@@ -2,6 +2,8 @@ package com.xiaofeng.blogs.tags.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xiaofeng.blogs.tags.bo.TagsBo;
+import com.xiaofeng.blogs.tags.dto.TagsDto;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.repository.TagsRepository;
 import org.springframework.stereotype.Service;
@@ -113,5 +115,12 @@ public class TagsServiceImpl implements TagsService {
             }
         }
         return tagList;
+    }
+
+    @Override
+    public List<TagsDto> getTags(TagsBo tagsBo) {
+        List<TagsDto> list = PageHelper.startPage(tagsBo.getPageNum(), tagsBo.getPageSize());
+        tagsRepository.getTags(tagsBo);
+        return list;
     }
 }

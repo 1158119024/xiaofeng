@@ -3,6 +3,8 @@ package com.xiaofeng.blogs.tags.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.tags.bo.TagsBo;
+import com.xiaofeng.blogs.tags.dto.TagsDto;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.service.TagsService;
 import com.xiaofeng.checklogin.annotation.IsLogin;
@@ -140,6 +142,20 @@ public class TagsController {
         Integer pageSize = Integer.parseInt(StringUtils.isEmpty(pageSizeStr) ? Constant.tagsPageSize.toString() : pageSizeStr);
 
         List<TagsEntity> result = tagsService.getTagsByUserId(userId, pageNum, pageSize, map.get("tagName"));
+        PageInfo pageInfo = new PageInfo(result);
+        return ResponseData.success(pageInfo);
+    }
+
+    /**
+     * 前台
+     * 根据用户id获取对应的标签实体
+     *  成功返回对应的实体List
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/getTags", method = RequestMethod.POST)
+    public ResponseData getTags(@RequestBody(required = false) TagsBo tagsBo){
+        List<TagsDto> result = tagsService.getTags(tagsBo);
         PageInfo pageInfo = new PageInfo(result);
         return ResponseData.success(pageInfo);
     }

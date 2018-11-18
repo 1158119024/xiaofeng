@@ -1,5 +1,7 @@
 package com.xiaofeng.blogs.tags.repository;
 
+import com.xiaofeng.blogs.tags.bo.TagsBo;
+import com.xiaofeng.blogs.tags.dto.TagsDto;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -48,4 +50,7 @@ public interface TagsRepository {
 
     @Select("select * from xiaofeng_tags where userId = #{userId} and tagName = #{tagName}")
     TagsEntity getTagByTagName(@Param("userId") Integer userId,@Param("tagName") String tagName);
+
+    @SelectProvider(type = TagsRepositoryImpl.class, method = "getTags")
+    List<TagsDto> getTags(TagsBo tagsBo);
 }

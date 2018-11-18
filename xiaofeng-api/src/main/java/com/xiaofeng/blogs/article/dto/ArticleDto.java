@@ -52,4 +52,6 @@ public class ArticleDto {
 
     // 文章标签列表
     private List<TagsEntity> tagList;
+    // 当前标签信息
+    private TagsEntity tagsEntity;
 }

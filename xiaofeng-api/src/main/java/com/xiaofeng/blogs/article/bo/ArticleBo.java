@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 /**
  * @Auther: 晓枫
  * @Date: 2018/11/13 22:36
- * @Description: 前端查询时的参数
+ * @Description: 接收前端请求数据
  */
 @AllArgsConstructor
 @NoArgsConstructor

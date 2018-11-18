@@ -108,7 +108,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDto getArticleById(Integer id) {
+        ArticleEntity updateEntity = new ArticleEntity();
+
         ArticleEntity articleEntity = articleRepository.getArticleById(id);
+        // 浏览数加1
+        updateEntity.setBrowseNum(articleEntity.getBrowseNum() + 1).setId(id).setUserId(articleEntity.getUserId());
+//        articleEntity.setBrowseNum(articleEntity.getBrowseNum() + 1);
+        updateState(updateEntity);
+
         ArticleDto articleDto = articleEntity.entityToDto(ArticleDto.class);
         // 获取标签
         String tagsId = articleEntity.getTagsId();

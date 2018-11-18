@@ -1,6 +1,8 @@
 package com.xiaofeng.blogs.tags.service;
 
 import com.github.pagehelper.Page;
+import com.xiaofeng.blogs.tags.bo.TagsBo;
+import com.xiaofeng.blogs.tags.dto.TagsDto;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 
 import java.util.List;
@@ -31,4 +33,6 @@ public interface TagsService {
     void updateTagNum(List<String> tagsIdList, Integer userId, String action);
 
     List<TagsEntity> getTagEntityByTagsId(String tagsId);
+
+    List<TagsDto> getTags(TagsBo tagsBo);
 }

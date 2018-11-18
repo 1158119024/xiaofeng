@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.tags.controller;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.tags.bo.TagsBo;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.service.TagsConsumerService;
 import feign.Param;
@@ -49,5 +50,10 @@ public class TagsConsumerController {
     @RequestMapping(value = "/getTagsByUserId", method = RequestMethod.POST)
     public ResponseData getTagsByUserId(@RequestBody(required = false) Map<String, String> map){
         return tagsConsumerService.getTagsByUserId(map);
+    }
+
+    @RequestMapping(value = "/getTags", method = RequestMethod.POST)
+    public ResponseData getTags(@RequestBody(required = false) TagsBo tagsBo){
+        return tagsConsumerService.getTags(tagsBo);
     }
 }
