@@ -27,7 +27,7 @@ public class TokenUtil {
     public static String SUBJECT = "subject";
 
     //token 过期时间
-    public static final Integer EXPIRATION = 10;
+    public static final Integer EXPIRATION = 60;
 
     // HS256 私钥
     public static String HS256KEY = "xiaofeng";

@@ -1,7 +1,10 @@
 package com.xiaofeng.blogs.collect.controller;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.collect.bo.CollectBo;
+import com.xiaofeng.blogs.collect.entity.CollectEntity;
 import com.xiaofeng.blogs.collect.service.CollectConsumerService;
+import feign.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +30,28 @@ public class CollectConsumerController {
         return collectConsumerService.list();
     }
 
-    @RequestMapping(value = "/first", method = RequestMethod.GET)
-    public Map<String, Object> firstResp (HttpServletResponse response){
+    @RequestMapping(value = "/getTitleByUrl", method = RequestMethod.POST)
+    public ResponseData getTitleByUrl(@RequestParam String url){
+        return collectConsumerService.getTitleByUrl(url);
+    }
 
-        Map<String, Object> stringObjectMap = collectConsumerService.firstResp();
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseData add(@RequestBody CollectEntity collectEntity){
+        return collectConsumerService.add(collectEntity);
+    }
 
-//        Map<String, String> header = (Map<String, String>)stringObjectMap.get("header");
-//        Set<String> set = header.keySet();
-//        for ( String key: set ) {
-//            response.setHeader(key, header.get(key));
-//        }
-        return stringObjectMap;
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ResponseData delete(@PathVariable("id") Integer id){
+        return collectConsumerService.delete(id);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseData update(@RequestBody CollectEntity collectEntity){
+        return collectConsumerService.update(collectEntity);
+    }
+
+    @RequestMapping(value = "/getCollectsByCondition", method = RequestMethod.POST)
+    public ResponseData getCollectsByCondition(@RequestBody CollectBo collectBo){
+        return collectConsumerService.getCollectsByCondition(collectBo);
     }
 }

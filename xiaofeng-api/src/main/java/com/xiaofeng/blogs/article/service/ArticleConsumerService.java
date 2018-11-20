@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.service;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -40,4 +41,7 @@ public interface ArticleConsumerService {
 
     @RequestMapping(value = "/article/getArticles", method = RequestMethod.POST)
     ResponseData getArticles(ArticleBo articleBo);
+
+    @RequestMapping(value = "/article/getArchivesByCreateTime", method = RequestMethod.POST)
+    ResponseData getArchivesByCreateTime(ArchivesBo archivesBo);
 }

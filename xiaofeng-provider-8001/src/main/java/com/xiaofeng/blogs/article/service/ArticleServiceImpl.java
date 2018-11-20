@@ -3,7 +3,10 @@ package com.xiaofeng.blogs.article.service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
+import com.xiaofeng.blogs.article.dto.ArchivesDto;
+import com.xiaofeng.blogs.article.dto.ArchivesKeyDto;
 import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.repository.ArticleRepository;
@@ -153,6 +156,41 @@ public class ArticleServiceImpl implements ArticleService {
         pageInfo.setList(articleList);
         return pageInfo;
     }
+
+    /**
+     * 通过创建时间进行归档查询
+     * @param archivesBo
+     * @return
+     */
+    @Override
+    public List<ArchivesKeyDto> getArchivesByCreateTime(ArchivesBo archivesBo) {
+        List<ArchivesDto> archivesDtoList = articleRepository.getArchivesByCreateTime(archivesBo);
+        List<ArchivesKeyDto> archivesKeyDtos = new ArrayList<>();
+        for (ArchivesDto item : archivesDtoList) {
+            String year = item.getYear();
+            ArchivesKeyDto keyDto = isExistYear(year, archivesKeyDtos);
+            if ( keyDto == null ) {
+                keyDto = new ArchivesKeyDto();
+                archivesKeyDtos.add(keyDto);
+                keyDto.setYear(year);
+            }
+            keyDto.getList().add(item);
+        }
+
+        return archivesKeyDtos;
+    }
+
+    public ArchivesKeyDto isExistYear(String year, List<ArchivesKeyDto> list) {
+        if ( !StringUtils.isEmpty(year) ) {
+            for ( ArchivesKeyDto item : list ) {
+                if ( item.getYear().equals(year) ) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
 
     // 数组去空
     public List<String> StringToList(String tagsId){

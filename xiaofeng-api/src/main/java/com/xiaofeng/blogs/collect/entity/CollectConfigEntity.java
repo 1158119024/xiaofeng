@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 /**
  * @Auther: 晓枫
  * @Date: 2018/10/20 17:41
- * @Description: 收藏配置实体
+ * @Description: 收藏配置实体，暂时不做
  */
 @AllArgsConstructor
 @NoArgsConstructor

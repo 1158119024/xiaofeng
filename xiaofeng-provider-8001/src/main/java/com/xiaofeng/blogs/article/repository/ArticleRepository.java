@@ -1,6 +1,8 @@
 package com.xiaofeng.blogs.article.repository;
 
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
+import com.xiaofeng.blogs.article.dto.ArchivesDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -35,4 +37,8 @@ public interface ArticleRepository {
     //    @Select("select * from xiaofeng_article where userId = #{userId}")
     @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArticlesByUserId")
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
+
+    @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArchivesByCreateTime")
+    List<ArchivesDto> getArchivesByCreateTime(ArchivesBo archivesBo);
+
 }

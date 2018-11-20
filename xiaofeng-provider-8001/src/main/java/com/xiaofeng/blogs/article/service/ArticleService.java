@@ -1,7 +1,10 @@
 package com.xiaofeng.blogs.article.service;
 
 import com.github.pagehelper.PageInfo;
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
+import com.xiaofeng.blogs.article.dto.ArchivesDto;
+import com.xiaofeng.blogs.article.dto.ArchivesKeyDto;
 import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import org.apache.ibatis.annotations.*;
@@ -28,4 +31,8 @@ public interface ArticleService {
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
 
     PageInfo getArticles(ArticleBo articleBo);
+
+    // 通过时间进行归档查询
+    List<ArchivesKeyDto> getArchivesByCreateTime(ArchivesBo archivesBo);
+
 }

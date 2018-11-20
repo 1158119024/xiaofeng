@@ -1,8 +1,13 @@
 package com.xiaofeng.blogs.collect.service;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.collect.bo.CollectBo;
+import com.xiaofeng.blogs.collect.entity.CollectEntity;
+import com.xiaofeng.utils.GetHtmlTitle;
 import feign.Headers;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,10 +27,21 @@ import java.util.Map;
 public interface CollectConsumerService {
 
     @RequestMapping(value = "/collect/list", method = RequestMethod.GET)
-    public ResponseData list();
+    ResponseData list();
 
-    @RequestMapping(value = "/collect/first", method = RequestMethod.GET)
-    public Map<String, Object> firstResp ();
+    @RequestMapping(value = "/collect/getTitleByUrl", method = RequestMethod.POST)
+    ResponseData getTitleByUrl(String url);
 
+    @RequestMapping(value = "/collect/add", method = RequestMethod.POST)
+    ResponseData add(CollectEntity collectEntity);
+
+    @RequestMapping(value = "/collect/delete/{id}", method = RequestMethod.GET)
+    ResponseData delete(@PathVariable("id") Integer id);
+
+    @RequestMapping(value = "/collect/update", method = RequestMethod.POST)
+    ResponseData update(CollectEntity collectEntity);
+
+    @RequestMapping(value = "/collect/getCollectsByCondition", method = RequestMethod.POST)
+    ResponseData getCollectsByCondition(CollectBo collectBo);
 
 }

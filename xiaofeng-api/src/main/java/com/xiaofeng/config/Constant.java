@@ -17,6 +17,8 @@ public class Constant {
     public static final String fileTempPath = "D:/temp/";
 
     // 处理文件上传的服务地址
-    public static final String fileUpload = "http://localhost:8001";
+    public static final String fileUpload = "http://127.0.0.1:8001";
 
+    // 处理收藏工具的url
+    public static final String webTool = "http://127.0.0.1:4444/#/webtool";
 }

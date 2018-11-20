@@ -1,7 +1,9 @@
 package com.xiaofeng.blogs.collect.service;
 
+import com.xiaofeng.blogs.collect.bo.CollectBo;
 import com.xiaofeng.blogs.collect.dto.CollectDto;
-import org.springframework.stereotype.Service;
+import com.xiaofeng.blogs.collect.entity.CollectEntity;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,4 +15,12 @@ import java.util.List;
 public interface CollectService {
 
     List<CollectDto> list();
+
+    Integer add(CollectEntity collectEntity);
+
+    Integer delete(Integer id, Integer userId);
+
+    Integer update(CollectEntity collectEntity);
+
+    List<CollectEntity> getCollectsByCondition(CollectBo collectBo);
 }

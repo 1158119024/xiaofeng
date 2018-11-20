@@ -25,13 +25,15 @@ public class CollectEntity extends EntityBase<CollectDto, CollectEntity>{
     //用户Id
     private Integer userId;
     //名称
-    private String name;
+    private String title;
     //url
     private String url;
     //分类
     private Integer categoryId;
     //顶级分类
     private Integer categoryParentId;
+    // 标签 格式：,123,123,123,
+    private String tagsId;
     //是否展示在特殊页
     private Boolean isShow;
     //是否公开

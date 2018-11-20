@@ -2,6 +2,7 @@ package com.xiaofeng.blogs.article.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.dto.ArticleDto;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
@@ -159,5 +160,14 @@ public class ArticleController {
         articleBo.setPageSize(pageSize == null ? Constant.pageSize : pageSize);
         PageInfo<ArticleDto> pageInfo = articleService.getArticles(articleBo);
         return ResponseData.success(pageInfo);
+    }
+
+    /**
+     * 根据创建时间归档查询
+     * @return
+     */
+    @RequestMapping(value = "/getArchivesByCreateTime", method = RequestMethod.POST)
+    public ResponseData getArchivesByCreateTime(@RequestBody ArchivesBo archivesBo){
+        return ResponseData.success(articleService.getArchivesByCreateTime(archivesBo));
     }
 }

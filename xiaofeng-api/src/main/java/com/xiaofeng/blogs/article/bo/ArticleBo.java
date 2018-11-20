@@ -39,4 +39,7 @@ public class ArticleBo {
     private Boolean isPrivate = false;
     // 置顶
     private Boolean isTop = true;
+
+    // 按创建时间归档
+    private String archivesTime;
 }

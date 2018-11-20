@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.article.repository;
 
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.utils.MybatisUtils;
@@ -76,8 +77,23 @@ public class ArticleRepositoryImpl {
                 if( articleBo.getIsTop() != null ){
                     WHERE("isTop = #{isTop}");
                 }
+                if( !StringUtils.isEmpty(articleBo.getArchivesTime()) ){
+                    WHERE("DATE_FORMAT(createTime, '%Y-%m') = #{archivesTime}");
+                }
                 ORDER_BY("topGrade DESC, updateTime DESC");
             }
         }.toString();
     }
+
+    public String getArchivesByCreateTime(final ArchivesBo archivesBo){
+        return new SQL(){
+            {
+                SELECT("COUNT(1) AS COUNT, DATE_FORMAT(createTime, '%Y-%m') AS createTime, DATE_FORMAT(createTime, '%Y') AS year");
+                FROM("xiaofeng_article");
+                WHERE("userId = #{userId}");
+                GROUP_BY("DATE_FORMAT(createTime, '%Y-%m')");
+            }
+        }.toString();
+    }
+
 }

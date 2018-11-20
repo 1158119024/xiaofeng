@@ -1,6 +1,7 @@
 package com.xiaofeng.blogs.article.controller;
 
 import com.xiaofeng.base.httpformat.ResponseData;
+import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.article.service.ArticleConsumerService;
@@ -54,5 +55,14 @@ public class ArticleConsumerController {
     @RequestMapping(value = "/getArticles", method = RequestMethod.POST)
     public ResponseData getArticles(@RequestBody ArticleBo articleBo){
         return articleConsumerService.getArticles(articleBo);
+    }
+
+    /**
+     * 根据创建时间归档查询
+     * @return
+     */
+    @RequestMapping(value = "/getArchivesByCreateTime", method = RequestMethod.POST)
+    public ResponseData getArchivesByCreateTime(@RequestBody ArchivesBo archivesBo){
+        return articleConsumerService.getArchivesByCreateTime(archivesBo);
     }
 }
