@@ -53,7 +53,7 @@ public class CollectRepositoryImpl {
                     WHERE("title like CONCAT('%',#{title},'%')");
                 }
                 if( !StringUtils.isEmpty(collectBo.getTagId())){
-                    WHERE("tagsId like CONCAT('%',#{tagId},'%')");
+                    WHERE("tagId = #{tagId}");
                 }
             }
         }.toString();

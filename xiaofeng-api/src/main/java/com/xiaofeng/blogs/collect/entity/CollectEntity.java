@@ -32,8 +32,8 @@ public class CollectEntity extends EntityBase<CollectDto, CollectEntity>{
     private Integer categoryId;
     //顶级分类
     private Integer categoryParentId;
-    // 标签 格式：,123,123,123,
-    private String tagsId;
+    // 标签
+    private String tagId;
     //是否展示在特殊页
     private Boolean isShow;
     //是否公开
@@ -44,6 +44,8 @@ public class CollectEntity extends EntityBase<CollectDto, CollectEntity>{
     private Integer adoptCount;
     //浏览人数
     private Integer browseCount;
+    // 描述
+    private String readme;
 
     /*public CollectDto entityToDto(CollectDto dto){
         try {

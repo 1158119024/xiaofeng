@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.collect.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xiaofeng.blogs.collect.bo.CollectBo;
 import com.xiaofeng.blogs.collect.dto.CollectDto;
 import com.xiaofeng.blogs.collect.entity.CollectEntity;
@@ -22,5 +23,5 @@ public interface CollectService {
 
     Integer update(CollectEntity collectEntity);
 
-    List<CollectEntity> getCollectsByCondition(CollectBo collectBo);
+    PageInfo<CollectDto> getCollectsByCondition(CollectBo collectBo);
 }

@@ -54,4 +54,9 @@ public class CollectConsumerController {
     public ResponseData getCollectsByCondition(@RequestBody CollectBo collectBo){
         return collectConsumerService.getCollectsByCondition(collectBo);
     }
+
+    @RequestMapping(value = "/getTool", method = RequestMethod.POST)
+    public ResponseData getTool(){
+        return collectConsumerService.getTool();
+    }
 }

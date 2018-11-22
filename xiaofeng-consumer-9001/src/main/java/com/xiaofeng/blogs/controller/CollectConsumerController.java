@@ -28,11 +28,4 @@ public class CollectConsumerController {
     public ResponseData list(){
         return collectConsumerService.list();
     }
-
-    @RequestMapping(value = "/first", method = RequestMethod.GET)
-    public Map<String, Object> firstResp (){
-
-        Map<String, Object> stringObjectMap = collectConsumerService.firstResp();
-        return stringObjectMap;
-    }
 }

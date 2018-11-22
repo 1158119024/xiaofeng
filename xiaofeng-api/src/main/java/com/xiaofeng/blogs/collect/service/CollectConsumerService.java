@@ -44,4 +44,6 @@ public interface CollectConsumerService {
     @RequestMapping(value = "/collect/getCollectsByCondition", method = RequestMethod.POST)
     ResponseData getCollectsByCondition(CollectBo collectBo);
 
+    @RequestMapping(value = "/collect/getTool", method = RequestMethod.POST)
+    ResponseData getTool();
 }

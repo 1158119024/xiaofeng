@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.collect.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.collect.bo.CollectBo;
 import com.xiaofeng.blogs.collect.dto.CollectDto;
@@ -10,6 +11,7 @@ import com.xiaofeng.checklogin.annotation.IsLogin;
 import com.xiaofeng.checklogin.aop.AopUtils;
 import com.xiaofeng.config.Constant;
 import com.xiaofeng.utils.GetHtmlTitle;
+import com.xiaofeng.utils.MD5Utils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +39,11 @@ public class CollectController {
     private CollectService collectService;
 
     @RequestMapping(value = "/getTool", method = RequestMethod.POST)
-    public ResponseData getTool(){
+    public ResponseData getTool(HttpServletRequest request){
+        Integer userId = AopUtils.getUserIdByToken(request);
         String path = "javascript:(function()%7Bvar%20description;var%20desString=%22%22;var%20metas=document.getElementsByTagName('meta');for(var%20x=0,y=metas.length;x%3Cy;x++)%7Bif(metas%5Bx%5D.name.toLowerCase()==%22description%22)%7Bdescription=metas%5Bx%5D;%7D%7Dif(description)%7BdesString=%22&amp;amp;description=%22+encodeURIComponent(description.content);%7Dvar%20win=window.open(%22" +
-                Constant.webTool +
-                "?from=webtool&amp;url=%22+encodeURIComponent(document.URL)+desString+%22&amp;title=%22+encodeURIComponent(document.title)+%22&amp;charset=%22+document.charset,'_blank');win.focus();%7D)();";
+                Constant.webTool + "/" + userId +
+                "?from=tool&amp;url=%22+encodeURIComponent(document.URL)+desString+%22&amp;title=%22+encodeURIComponent(document.title)+%22&amp;charset=%22+document.charset,'_blank');win.focus();%7D)();";
         return ResponseData.success(path);
     }
 
@@ -50,9 +53,7 @@ public class CollectController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseData add(@RequestBody CollectEntity collectEntity, HttpServletRequest request) {
-        Integer userId = AopUtils.getUserIdByToken(request);
-        collectEntity.setUserId(userId);
+    public ResponseData add(@RequestBody CollectEntity collectEntity) {
         Integer result = collectService.add(collectEntity);
         if( result == null || result == 0 ){
             return ResponseData.fial();
@@ -101,7 +102,8 @@ public class CollectController {
         Integer pageSize = collectBo.getPageSize();
         collectBo.setPageNum(pageNum == null || pageNum < 1 ? 1 : pageNum);
         collectBo.setPageSize(pageSize == null ? Constant.pageSize : pageSize);
-        return ResponseData.success(collectService.getCollectsByCondition(collectBo));
+        PageInfo<CollectDto> pageInfo = collectService.getCollectsByCondition(collectBo);
+        return ResponseData.success(pageInfo);
     }
 
     @IsLogin

@@ -14,7 +14,7 @@ public class Constant {
     public static final Integer tagsPageSize = 50;
 
     // 文件保存的临时位置
-    public static final String fileTempPath = "D:/temp/";
+    public static final String fileTempPath = "/temp/";
 
     // 处理文件上传的服务地址
     public static final String fileUpload = "http://127.0.0.1:8001";
