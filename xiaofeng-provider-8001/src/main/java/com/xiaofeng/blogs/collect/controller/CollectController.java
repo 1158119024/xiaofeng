@@ -106,6 +106,7 @@ public class CollectController {
         return ResponseData.success(pageInfo);
     }
 
+
     @IsLogin
     @RequestMapping("/list")
     public ResponseData list(String token){
