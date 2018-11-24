@@ -47,6 +47,11 @@ public class ArticleConsumerController {
         return articleConsumerService.getArticleById(id);
     }
 
+    @RequestMapping(value = "/getArticleAndPreAndNextById", method = RequestMethod.POST)
+    public ResponseData getArticleAndPreAndNextById(@RequestBody ArticleBo articleBo){
+        return articleConsumerService.getArticleAndPreAndNextById(articleBo);
+    }
+
     @RequestMapping(value = "/getArticlesByUserId", method = RequestMethod.POST)
     public ResponseData getArticlesByUserId(@RequestBody ArticleBo articleBo){
         return articleConsumerService.getArticlesByUserId(articleBo);

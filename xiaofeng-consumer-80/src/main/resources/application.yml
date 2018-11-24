@@ -12,6 +12,9 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+        timeout:
+          enabled: false
+
 
 spring:
   application:

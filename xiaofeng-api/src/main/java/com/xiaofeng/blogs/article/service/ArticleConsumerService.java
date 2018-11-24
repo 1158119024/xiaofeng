@@ -36,6 +36,9 @@ public interface ArticleConsumerService {
     @RequestMapping(value = "/article/getArticleById/{id}", method = RequestMethod.GET)
     ResponseData getArticleById(@PathVariable("id") Integer id);
 
+    @RequestMapping(value = "/article/getArticleAndPreAndNextById", method = RequestMethod.POST)
+    ResponseData getArticleAndPreAndNextById(ArticleBo articleBo);
+
     @RequestMapping(value = "/article/getArticlesByUserId", method = RequestMethod.POST)
     ResponseData getArticlesByUserId(ArticleBo articleBo);
 

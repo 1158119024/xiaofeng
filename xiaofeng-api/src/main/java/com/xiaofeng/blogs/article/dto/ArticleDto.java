@@ -1,5 +1,6 @@
 package com.xiaofeng.blogs.article.dto;
 
+import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,4 +55,10 @@ public class ArticleDto {
     private List<TagsEntity> tagList;
     // 当前标签信息
     private TagsEntity tagsEntity;
+
+    // 上一篇
+    private ArticleEntity prevArticleEntity;
+
+    // 下一篇
+    private ArticleEntity nextArticleEntity;
 }

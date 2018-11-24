@@ -34,6 +34,10 @@ public interface ArticleRepository {
     @Select("select * from xiaofeng_article where id = #{id}")
     ArticleEntity getArticleById(Integer id);
 
+    // 获取文章的上中下篇
+    @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArticleAndPreAndNextById")
+    List<ArticleEntity> getArticleAndPreAndNextById(@Param("id") Integer id, @Param("userId") Integer userId);
+
     //    @Select("select * from xiaofeng_article where userId = #{userId}")
     @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArticlesByUserId")
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);

@@ -14,6 +14,7 @@ import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.repository.TagsRepository;
 import com.xiaofeng.blogs.tags.service.TagsService;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -110,7 +111,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto getArticleById(Integer id) {
+    public ArticleDto getArticleById(Integer id){
         ArticleEntity updateEntity = new ArticleEntity();
 
         ArticleEntity articleEntity = articleRepository.getArticleById(id);
@@ -122,6 +123,46 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleDto articleDto = articleEntity.entityToDto(ArticleDto.class);
         // 获取标签
         String tagsId = articleEntity.getTagsId();
+        List<TagsEntity> tagList = tagsService.getTagEntityByTagsId(tagsId);
+        articleDto.setTagList(tagList);
+        return articleDto;
+    }
+
+    // 获取上中下三篇文章
+    @Override
+    public ArticleDto getArticleAndPreAndNextById(Integer id, Integer userId) {
+        ArticleEntity updateEntity = new ArticleEntity();
+        ArticleEntity currentEntity = new ArticleEntity();
+        ArticleDto articleDto = new ArticleDto();
+
+        List<ArticleEntity> articleEntityList = articleRepository.getArticleAndPreAndNextById(id, userId);
+        for ( int i = 0, len = articleEntityList.size(); i < len; i++ ) {
+            ArticleEntity entity = articleEntityList.get(i);
+            if( entity.getId() == id ){
+                currentEntity = entity;
+                articleDto = currentEntity.entityToDto(ArticleDto.class);
+                if( len > 1 ){
+                    if( i == 0 ){ // 下标等于0时，代表没有上一篇
+                        articleDto.setNextArticleEntity(articleEntityList.get(1));
+                    } else if( i == 1 ){ // 下标等于1时，代表有上一篇，但是下一篇不确定
+                        if( len == 3 ){ // 总数等于3时，代表有下一篇
+                            articleDto.setPrevArticleEntity(articleEntityList.get(0));
+                            articleDto.setNextArticleEntity(articleEntityList.get(2));
+                        } else { // 总数不等于3时，代表没有下一篇
+                            articleDto.setPrevArticleEntity(articleEntityList.get(0));
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        // 浏览数加1
+        updateEntity.setBrowseNum(currentEntity.getBrowseNum() + 1).setId(id).setUserId(currentEntity.getUserId());
+//        articleEntity.setBrowseNum(articleEntity.getBrowseNum() + 1);
+        updateState(updateEntity);
+
+        // 获取标签
+        String tagsId = currentEntity.getTagsId();
         List<TagsEntity> tagList = tagsService.getTagEntityByTagsId(tagsId);
         articleDto.setTagList(tagList);
         return articleDto;

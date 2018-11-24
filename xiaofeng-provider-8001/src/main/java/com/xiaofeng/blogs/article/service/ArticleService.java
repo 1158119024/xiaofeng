@@ -28,6 +28,8 @@ public interface ArticleService {
 
     ArticleDto getArticleById(Integer id);
 
+    ArticleDto getArticleAndPreAndNextById(Integer id, Integer userId);
+
     List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo);
 
     PageInfo getArticles(ArticleBo articleBo);

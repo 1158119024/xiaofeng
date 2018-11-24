@@ -4,6 +4,7 @@ import com.xiaofeng.blogs.article.bo.ArchivesBo;
 import com.xiaofeng.blogs.article.bo.ArticleBo;
 import com.xiaofeng.blogs.article.entity.ArticleEntity;
 import com.xiaofeng.utils.MybatisUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.util.StringUtils;
 
@@ -45,6 +46,29 @@ public class ArticleRepositoryImpl {
                 WHERE("userId=#{userId}");
             }
         }.toString();
+    }
+
+    public String getArticleAndPreAndNextById(final @Param("id") Integer id, final @Param("userId") Integer userId){
+        return "SELECT * FROM xiaofeng_article\n" +
+                "WHERE id IN (\n" +
+                "\tSELECT\n" +
+                "            CASE\n" +
+                "            WHEN SIGN(id - #{id}) > 0 THEN MIN(id)\n" +
+                "            WHEN SIGN(id - #{id}) < 0 THEN MAX(id)\n" +
+                "        ELSE\n" +
+                "            id\n" +
+                "        END AS id\n" +
+                "        FROM\n" +
+                "            xiaofeng_article\n" +
+                "        WHERE userId = #{userId} and state=1 and isPrivate=0\n" +
+                "       \n" +
+                "        GROUP BY\n" +
+                "            SIGN(id - #{id})\n" +
+                "        ORDER BY\n" +
+                "            SIGN(id - #{id}), updateTime DESC\n" +
+                "    )\n" +
+                "ORDER BY\n" +
+                "    id ASC;";
     }
     public String getArticlesByUserId(final ArticleBo articleBo){
         return new SQL() {

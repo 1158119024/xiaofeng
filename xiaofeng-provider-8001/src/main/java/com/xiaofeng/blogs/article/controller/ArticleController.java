@@ -128,6 +128,17 @@ public class ArticleController {
     }
 
     /**
+     * 以选中id为中，获取上中下三篇文章
+     * @param articleBo
+     * @return
+     */
+    @RequestMapping(value = "/getArticleAndPreAndNextById", method = RequestMethod.POST)
+    public ResponseData getArticleAndPreAndNextById(@RequestBody ArticleBo articleBo){
+        ArticleDto articleDto = articleService.getArticleAndPreAndNextById(articleBo.getId(), articleBo.getUserId());
+        return ResponseData.success(articleDto);
+    }
+
+    /**
      * 后台根据条件查询文章
      * @param articleBo
      * @param request
