@@ -1,6 +1,6 @@
-server:
-  port: 80
-#  port: 9527
+#server:
+#  port: 80
+##  port: 9527
 
 feign:
   hystrix:
@@ -48,3 +48,15 @@ logging:
     com:
       xiaofeng:
         blogs: debug
+
+---
+server:
+  port: 9527
+spring:
+  profiles: prod
+
+---
+server:
+  port: 80
+spring:
+  profiles: dev
