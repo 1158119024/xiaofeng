@@ -16,6 +16,7 @@
         <module>xiaofeng-security</module>
         <module>xiaofeng-provider-8002</module>
         <module>xiaofeng-consumer-9001</module>
+        <module>xiaofeng-message-handle-9001</module>
     </modules>
 
     <properties>

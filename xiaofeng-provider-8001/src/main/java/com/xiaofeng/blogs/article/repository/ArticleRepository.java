@@ -31,6 +31,9 @@ public interface ArticleRepository {
     @UpdateProvider(type = ArticleRepositoryImpl.class, method = "update")
     Integer update(ArticleEntity articleEntity);
 
+    @Update("update xiaofeng_article SET browseNum = browseNum + 1 where id=#{id}")
+    Integer incrBrowseNum(Integer id);
+
     @Select("select * from xiaofeng_article where id = #{id}")
     ArticleEntity getArticleById(Integer id);
 

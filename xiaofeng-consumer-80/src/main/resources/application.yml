@@ -4,7 +4,14 @@
 
 feign:
   hystrix:
-    enabled: false
+    enabled: true
+
+
+#请求处理的超时时间
+ribbon:
+  ReadTimeout: 4000
+#请求连接的超时时间
+  ConnectTimeout: 3000
 
 hystrix:
   command:
@@ -37,6 +44,9 @@ zuul:
     dept-consumer:
       serviceId: xiaofeng-consumer-80
       path: /xiaofeng/**
+    message-consumer:
+      serviceId: xiaofeng-consumer-80
+      path: /message/**
   host:
     connect-timeout-millis: 20000000
     socket-timeout-millis: 100000000

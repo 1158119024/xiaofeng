@@ -1,7 +1,6 @@
 package com.xiaofeng.config.jwt;
 
 import com.alibaba.fastjson.JSON;
-import com.xiaofeng.blogs.user.entity.UserEntity;
 import io.jsonwebtoken.*;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;

@@ -11,6 +11,7 @@ import com.xiaofeng.blogs.article.service.ArticleService;
 import com.xiaofeng.checklogin.annotation.IsLogin;
 import com.xiaofeng.checklogin.aop.AopUtils;
 import com.xiaofeng.config.Constant;
+import com.xiaofeng.message.log.service.LogMessageHandleConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;

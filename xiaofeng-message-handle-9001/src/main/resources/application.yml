@@ -1,0 +1,88 @@
+# mybaits配置
+mybatis:
+  #config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.xiaofeng.blogs.*.entity    # 所有Entity别名类所在包
+
+  #mapper-locations:
+  #- classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+
+logging:
+  level:
+     com:
+      xiaofeng:
+        blogs: debug
+
+# spring配置
+spring:
+  http:
+    multipart:
+      enabled: true   # 启用http上传处理
+      max-file-size: 5MB # 设置单个文件的最大长度
+      max-request-size: 20MB # 设置最大的请求文件的大小
+      file-size-threshold: 1MB  # 当上传文件达到1MB的时候进行磁盘写入
+      location: /  # 上传的临时目录
+  application:
+    name: xiaofeng-message-handle
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
+
+# eureka配置
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      #单机版
+      defaultZone: http://eureka7001.com:7001/eureka
+#      defaultZone: http://ymyhome.cn:7001/eureka             #指定去哪个微服务注册
+      #集群版
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: xiaofeng-message-handle-9001
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5 #设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 #如果现在超过了5秒的间隔（默认90秒）
+
+
+info:
+  app.name: xiaofeng-blogs
+  company.name: www.ymyhome.com
+  build.artifactId: $project.artifactId$                #类似EL表达是${}，需要导入maven-resources-plugin插件,当前引入是pom文件中artifactId与版本
+  build.version: $project.version$
+
+
+---
+
+server:
+  port: 80
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://cdb-gaplhjgp.gz.tencentcdb.com:10035/xiaofengBlogs?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: lzj1158119024
+
+# eureka配置
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      #单机版
+      defaultZone: http://ymyhome.cn:7001/eureka
+  instance:
+    ip-address: 120.78.136.80
+---
+server:
+  port: 9001
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/xiaofengBlogs?useUnicode=true&characterEncoding=utf-8&useSSL=false              # 数据库名称
+    username: root
+    password: root
+
+# eureka配置
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      #单机版
+      defaultZone: http://eureka7001.com:7001/eureka

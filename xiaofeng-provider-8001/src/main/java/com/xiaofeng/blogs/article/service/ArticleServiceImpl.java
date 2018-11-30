@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Auther: 晓枫
@@ -90,6 +87,7 @@ public class ArticleServiceImpl implements ArticleService {
                 tagsService.decrTagNum(oldTagsId, userId);
             }
         }
+//        articleEntity.setUpdateTime(new Date());
         return articleRepository.update(articleEntity);
     }
 
@@ -116,9 +114,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         ArticleEntity articleEntity = articleRepository.getArticleById(id);
         // 浏览数加1
-        updateEntity.setBrowseNum(articleEntity.getBrowseNum() + 1).setId(id).setUserId(articleEntity.getUserId());
-//        articleEntity.setBrowseNum(articleEntity.getBrowseNum() + 1);
-        updateState(updateEntity);
+        articleRepository.incrBrowseNum(id);
 
         ArticleDto articleDto = articleEntity.entityToDto(ArticleDto.class);
         // 获取标签
@@ -157,9 +153,7 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
         // 浏览数加1
-        updateEntity.setBrowseNum(currentEntity.getBrowseNum() + 1).setId(id).setUserId(currentEntity.getUserId());
-//        articleEntity.setBrowseNum(articleEntity.getBrowseNum() + 1);
-        updateState(updateEntity);
+        articleRepository.incrBrowseNum(id);
 
         // 获取标签
         String tagsId = currentEntity.getTagsId();

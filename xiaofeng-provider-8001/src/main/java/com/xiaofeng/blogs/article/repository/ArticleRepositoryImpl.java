@@ -65,7 +65,7 @@ public class ArticleRepositoryImpl {
                 "        GROUP BY\n" +
                 "            SIGN(id - #{id})\n" +
                 "        ORDER BY\n" +
-                "            SIGN(id - #{id}), updateTime DESC\n" +
+                "            SIGN(id - #{id}), updateTime desc\n" +
                 "    )\n" +
                 "ORDER BY\n" +
                 "    id ASC;";

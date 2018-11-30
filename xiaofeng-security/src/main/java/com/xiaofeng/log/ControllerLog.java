@@ -1,7 +1,10 @@
 package com.xiaofeng.log;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.checklogin.aop.AopUtils;
+import com.xiaofeng.message.log.entity.LogEntity;
+import com.xiaofeng.message.log.service.LogMessageHandleConsumerService;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -9,6 +12,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,6 +32,9 @@ import java.util.Date;
 @Log4j2
 public class ControllerLog {
 
+    @Autowired
+    private LogMessageHandleConsumerService logMessageHandleConsumerService;
+
     @Pointcut("execution(* com.xiaofeng.blogs.*.controller..*.*(..))")
     public void executeService(){
     }
@@ -41,25 +48,41 @@ public class ControllerLog {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-        // 打印请求内容
-        log.info("===============请求内容===============");
-        log.info("请求地址: " + request.getRequestURL().toString());
-        log.info("请求方式: " + request.getMethod());
-        log.info("请求类方法: " + joinPoint.getSignature());
-        log.info("请求类方法参数: " + Arrays.toString(joinPoint.getArgs()));
-        log.info("请求token: " + AopUtils.getToken(request));
 
         Object[] args = joinPoint.getArgs();
         String classType = joinPoint.getTarget().getClass().getName();
         Class<?> clazz = Class.forName(classType);
         String clazzName = clazz.getName();
         String methodName = joinPoint.getSignature().getName(); // 获取方法名称
+        ResponseData result = (ResponseData)joinPoint.proceed();
+        // 打印请求内容
+        log.info("===============请求内容===============");
+        log.info("请求地址: " + request.getRequestURL().toString());
+        log.info("请求方式: " + request.getMethod());
+        log.info("请求的类: " + joinPoint.getTarget().getClass());
+        log.info("请求的方法: " + joinPoint.getSignature().getName());
+        log.info("请求类方法参数: " + JSON.toJSONString(Arrays.toString(joinPoint.getArgs())));
         // 获取参数名称和值
         StringBuffer sb = AopUtils.getNameAndArgs(this.getClass(), clazzName, methodName, args);
-        log.info("请求类方法参数名称和值: " + sb);
-        Object result = joinPoint.proceed();
+        log.info("请求的参数名称和值: " + sb);
+        log.info("请求token: " + AopUtils.getToken(request));
         log.info("请求返回值: " + JSON.toJSONString(result));
         log.info("===============请求内容===============");
+//        LogEntity logEntity = new LogEntity();
+//        logEntity.setCode(result.getCode());
+//        logEntity.setAddress(request.getRequestURL().toString());
+//        logEntity.setMethodType(request.getMethod());
+//        logEntity.setClazz(joinPoint.getTarget().getClass().toString());
+//        logEntity.setMethod(joinPoint.getSignature().getName());
+//        logEntity.setParams(sb.toString());
+//        logEntity.setToken(AopUtils.getToken(request));
+//        logEntity.setReturnValue(JSON.toJSONString(result));
+//        logEntity.setExTime(new Date());
+//        try{
+//            logMessageHandleConsumerService.add("6666");
+//        }catch (Exception e){
+//            log.error("记录日志请求错误", e);
+//        }
         return result;
     }
 
@@ -87,8 +110,9 @@ public class ControllerLog {
             params = "";
         }
 
-        XFException exp = new XFException();
-        exp.setExClass(joinPoint.getTarget().getClass()+"-->"+exclass);
+        LogEntity exp = new LogEntity();
+        exp.setCode(500);
+        exp.setClazz(joinPoint.getTarget().getClass()+"-->"+exclass);
         exp.setException(ex.toString());
         exp.setMethod(joinPoint.getTarget().getClass()+"."+joinPoint.getSignature().getName()+"()-->"+exclass+"."+ method+"()");
         exp.setExceptionContent(exceptionContent);

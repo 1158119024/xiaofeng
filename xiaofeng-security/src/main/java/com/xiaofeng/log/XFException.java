@@ -20,6 +20,7 @@ import java.util.Date;
 @Accessors(chain=true)
 public class XFException {
 
+    // 调用的类
     private String exClass;
     private String exception;
     private String method;

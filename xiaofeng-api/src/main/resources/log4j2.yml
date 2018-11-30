@@ -10,12 +10,13 @@ Appenders:
         fileName: D:/log/xiaofeng.log
 #        fileName: /home/rcdj/bgy_web/logs/bgy_web.log
 #        filePattern: "//logs/$${date:yyyy-MM}/cara_jwt -%d{yyyy-MM-dd}-%i.log.gz"
-        filePattern: "D:/logs/$${date:yyyy-MM}/cara_jwt -%d{yyyy-MM-dd}-%i.log.gz"
+        filePattern: "D:/log/$${date:yyyy-MM}/xiaofeng -%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
           pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
         Policies:
-          SizeBasedTriggeringPolicy:
-            size: "256 MB"
+          TimeBasedTriggeringPolicy:  # 按天分类
+            modulate: true
+            interval: 1
         DefaultRolloverStrategy:
           max: 1000
 Loggers:
