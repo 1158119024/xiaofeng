@@ -8,6 +8,7 @@ import com.xiaofeng.config.Constant;
 import com.xiaofeng.config.CosAndOssUser;
 import com.xiaofeng.utils.CosFileConfig;
 import com.xiaofeng.utils.FileCompress;
+import com.xiaofeng.utils.UUIDUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,19 +43,22 @@ public class FileServiceImpl implements FileService {
             return null;
         }
         String fileName = file.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()); // png
+        // 自定义fileName
+        String UUIDFileName = UUIDUtils.randomUUID() + "." + suffix;
         // 拼接临时文件地址，压缩文件
-        String tempPath = Constant.fileTempPath + fileName;
+        String tempPath = Constant.fileTempPath + UUIDFileName;
         File targetFile = new File(tempPath);
         // 压缩
         FileCompress.fileCompress(inputStream, targetFile, quality);
 
         // 拼接上传cos所需要的key
         StringBuffer cosKeySb = new StringBuffer();
-        String cosKey = cosKeySb.append(CosAndOssUser.keyPrefix).append(userId).append("/").append(fileName).toString();
+        String cosKey = cosKeySb.append(CosAndOssUser.keyPrefix).append(userId).append("/").append(UUIDFileName).toString();
         // 上传cos
         PutObjectResult cosPutResult = CosFileConfig.uploadFile(cosKey, targetFile);
 
-        fileRepository.delete(userId, cosKey);
+//        fileRepository.delete(userId, cosKey);
         ImageFileEntity imageFileEntity = new ImageFileEntity();
         imageFileEntity.setUserId(userId);
         imageFileEntity.setETag(cosPutResult.getETag());
@@ -63,12 +67,12 @@ public class FileServiceImpl implements FileService {
         imageFileEntity.setCosKey(cosKey);
         imageFileEntity.setQuality(quality);
         imageFileEntity.setSize(targetFile.length());
-        imageFileEntity.setType(fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length()));
+        imageFileEntity.setType(suffix);
         fileRepository.add(imageFileEntity);
 
         String imageUrl = CosAndOssUser.domain + cosKey;
         ImageFileDto imageFileDto = new ImageFileDto();
-        imageFileDto.setImageUrl(imageUrl).setSize(targetFile.length()).setFileName(fileName);
+        imageFileDto.setImageUrl(imageUrl).setSize(targetFile.length()).setFileName(UUIDFileName);
         return imageFileDto;
     }
 }
