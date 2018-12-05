@@ -10,7 +10,7 @@ Appenders:
         fileName: D:/log/xiaofeng.log
 #        fileName: /home/rcdj/bgy_web/logs/bgy_web.log
 #        filePattern: "//logs/$${date:yyyy-MM}/cara_jwt -%d{yyyy-MM-dd}-%i.log.gz"
-        filePattern: "D:/log/$${date:yyyy-MM}/xiaofeng -%d{yyyy-MM-dd}-%i.log.gz"
+        filePattern: "D:/log/$${date:yyyy-MM}/xiaofeng-%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
           pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
         Policies:

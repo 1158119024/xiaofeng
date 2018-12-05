@@ -48,4 +48,7 @@ public interface ArticleRepository {
     @SelectProvider(type = ArticleRepositoryImpl.class, method = "getArchivesByCreateTime")
     List<ArchivesDto> getArchivesByCreateTime(ArchivesBo archivesBo);
 
+    @Select("select count(1) from xiaofeng_article where userId = #{userId}")
+    Integer getArticleCountByUserId(Integer userId);
+
 }

@@ -13,6 +13,8 @@ import com.xiaofeng.blogs.article.repository.ArticleRepository;
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.repository.TagsRepository;
 import com.xiaofeng.blogs.tags.service.TagsService;
+import com.xiaofeng.blogs.user.repository.UserRepository;
+import com.xiaofeng.blogs.user.service.UserService;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,10 +41,14 @@ public class ArticleServiceImpl implements ArticleService {
         if( articleEntity.getIsTop() ){
             articleEntity.setTopGrade(1);
         }
-        Integer userId = articleEntity.getUserId();
-        String tagsId = articleEntity.getTagsId();
-        tagsService.incrTagNum(tagsId, userId);
-        return articleRepository.add(articleEntity);
+        Integer result = articleRepository.add(articleEntity);
+        if ( result > 0 ) {
+            Integer userId = articleEntity.getUserId();
+            String tagsId = articleEntity.getTagsId();
+            // 增加标签中的文章数量
+            tagsService.incrTagNum(tagsId, userId);
+        }
+        return result;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.xiaofeng.blogs.user.dto.UserAllDetailsDto;
 import com.xiaofeng.blogs.user.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Map;
 
@@ -34,4 +35,10 @@ public interface UserRepository {
             "\td.userId\n" +
             "FROM xiaofeng_user u , xiaofeng_user_details d WHERE u.id = #{userId} AND u.id = d.userId")
     UserAllDetailsDto getUserDetails(Integer userId);
+
+    @Update("update xiaofeng_user SET articleNum = articleNum + 1 where userId=#{userId}")
+    Integer incrArticleNum(Integer userId);
+
+    @Update("update xiaofeng_user SET collectNum = collectNum + 1 where userId=#{userId}")
+    Integer incrCollectNum(Integer userId);
 }

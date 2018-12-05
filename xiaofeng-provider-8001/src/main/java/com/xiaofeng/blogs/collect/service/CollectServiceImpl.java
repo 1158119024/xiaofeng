@@ -11,6 +11,7 @@ import com.xiaofeng.blogs.collect.repository.CollectRepository;
 
 import com.xiaofeng.blogs.tags.entity.TagsEntity;
 import com.xiaofeng.blogs.tags.service.TagsService;
+import com.xiaofeng.blogs.user.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,8 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public Integer add(CollectEntity collectEntity) {
-        return collectRepository.add(collectEntity);
+        Integer result = collectRepository.add(collectEntity);
+        return result;
     }
 
     @Override

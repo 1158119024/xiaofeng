@@ -29,4 +29,7 @@ public interface CollectRepository {
 
     @SelectProvider(type = CollectRepositoryImpl.class, method = "getCollectsByCondition")
     List<CollectEntity> getCollectsByCondition(CollectBo collectBo);
+
+    @Select("select count(1) from xiaofeng_collect where userId = #{userId}")
+    Integer getCollectCountByUserId(Integer userId);
 }
