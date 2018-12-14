@@ -55,6 +55,7 @@ public class CollectRepositoryImpl {
                 if( !StringUtils.isEmpty(collectBo.getTagId())){
                     WHERE("tagId = #{tagId}");
                 }
+                ORDER_BY("createTime DESC");
             }
         }.toString();
     }
