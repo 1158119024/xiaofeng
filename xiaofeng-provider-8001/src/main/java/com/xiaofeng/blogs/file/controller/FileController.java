@@ -4,6 +4,7 @@ import com.xiaofeng.base.httpformat.ResponseData;
 import com.xiaofeng.blogs.file.dto.ImageFileDto;
 import com.xiaofeng.blogs.file.service.FileService;
 import com.xiaofeng.checklogin.aop.AopUtils;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/file")
+@Log4j2
 public class FileController {
 
     @Autowired
@@ -36,6 +38,7 @@ public class FileController {
     public ResponseData fileUpload(@RequestParam("file") MultipartFile file,@RequestParam("quality") Float quality, HttpServletRequest request) throws IOException {
         Integer userId = AopUtils.getUserIdByToken(request);
         ImageFileDto imageFileDto = fileService.fileUpload(file, quality, userId);
+        log.error("----");
         return ResponseData.success(imageFileDto);
     }
 }

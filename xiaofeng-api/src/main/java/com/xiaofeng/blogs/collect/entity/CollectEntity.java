@@ -21,7 +21,7 @@ import java.util.Date;
 @Accessors(chain=true)
 public class CollectEntity extends EntityBase<CollectDto, CollectEntity>{
 
-    public Integer id;
+    private Integer id;
     //用户Id
     private Integer userId;
     //名称

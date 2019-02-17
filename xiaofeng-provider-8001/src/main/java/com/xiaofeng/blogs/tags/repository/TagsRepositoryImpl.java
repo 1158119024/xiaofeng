@@ -37,7 +37,7 @@ public class TagsRepositoryImpl {
                 SELECT("t.id, t.tagName, t.articleNum, t.createTime, u.aliasname");
                 FROM("xiaofeng_tags t");
                 INNER_JOIN("xiaofeng_user u on t.userId = u.id and t.userId = #{userId}");
-                ORDER_BY("createTime desc");
+                ORDER_BY("t.articleNum desc");
             }
         }.toString();
     }

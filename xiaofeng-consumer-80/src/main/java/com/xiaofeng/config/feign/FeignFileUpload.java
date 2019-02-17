@@ -11,7 +11,7 @@ import feign.codec.Encoder;
  * @Date: 2018/11/6 22:51
  * @Description:
  */
-@Configuration
+//@Configuration
 public class FeignFileUpload {
 
 //    @Bean

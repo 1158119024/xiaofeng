@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 public class MD5Utils {
 
     public static void main(String[] args) {
-        String s = md5Password("123");
+        String s = md5Password("lzj1158119024");
         System.out.println(s);
     }
     /**
