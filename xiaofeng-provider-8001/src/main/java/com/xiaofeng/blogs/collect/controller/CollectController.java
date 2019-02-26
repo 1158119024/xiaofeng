@@ -98,6 +98,7 @@ public class CollectController {
             Integer userId = AopUtils.getUserIdByToken(request);
             collectBo.setUserId(userId);
         }
+        collectBo.setTitle(collectBo.getTitle().trim());
         Integer pageNum = collectBo.getPageNum();
         Integer pageSize = collectBo.getPageSize();
         collectBo.setPageNum(pageNum == null || pageNum < 1 ? 1 : pageNum);

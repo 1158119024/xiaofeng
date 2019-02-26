@@ -140,7 +140,7 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleEntity> articleEntityList = articleRepository.getArticleAndPreAndNextById(id, userId);
         for ( int i = 0, len = articleEntityList.size(); i < len; i++ ) {
             ArticleEntity entity = articleEntityList.get(i);
-            if( entity.getId() == id ){
+            if( entity.getId().equals(id) ){
                 currentEntity = entity;
                 articleDto = currentEntity.entityToDto(ArticleDto.class);
                 if( len > 1 ){
@@ -170,6 +170,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleEntity> getArticlesByUserId(ArticleBo articleBo) {
+        articleBo.setTitle(articleBo.getTitle().trim());
         Integer pageNum = articleBo.getPageNum();
         Integer pageSize = articleBo.getPageSize();
         List<ArticleEntity> list = PageHelper.startPage(pageNum, pageSize);
@@ -179,6 +180,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public PageInfo getArticles(ArticleBo articleBo) {
+        articleBo.setTitle(articleBo.getTitle().trim());
         Integer pageNum = articleBo.getPageNum();
         Integer pageSize = articleBo.getPageSize();
         List<ArticleEntity> list = PageHelper.startPage(pageNum, pageSize);
