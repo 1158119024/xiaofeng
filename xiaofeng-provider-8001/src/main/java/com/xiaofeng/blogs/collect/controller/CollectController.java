@@ -14,6 +14,7 @@ import com.xiaofeng.utils.GetHtmlTitle;
 import com.xiaofeng.utils.MD5Utils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +99,9 @@ public class CollectController {
             Integer userId = AopUtils.getUserIdByToken(request);
             collectBo.setUserId(userId);
         }
-        collectBo.setTitle(collectBo.getTitle().trim());
+        if(!StringUtils.isEmpty(collectBo.getTitle())){
+            collectBo.setTitle(collectBo.getTitle().trim());
+        }
         Integer pageNum = collectBo.getPageNum();
         Integer pageSize = collectBo.getPageSize();
         collectBo.setPageNum(pageNum == null || pageNum < 1 ? 1 : pageNum);
